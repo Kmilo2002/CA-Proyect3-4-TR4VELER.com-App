@@ -23,9 +23,6 @@ const loggingSchema = new mongoose.Schema({
     },
     map:{
         type: String
-    },
-    reservation:{
-        type: Array 
     }
 },{
     timestamps: true

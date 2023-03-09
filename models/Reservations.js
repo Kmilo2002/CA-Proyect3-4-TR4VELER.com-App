@@ -1,10 +1,6 @@
 const mongoose = require("mongoose")
 
 const reservationSchema = new mongoose.Schema({
-    room:{
-        type: String,
-        required: true
-    },
     days:{
         type: Number,
         required: true
@@ -16,7 +12,15 @@ const reservationSchema = new mongoose.Schema({
     meals:{
         type: String,
         required: true
-    }
+    },
+    user:[{
+        type: mongoose.Types.ObjectId,
+        ref: "User"
+    }],
+    logging:[{
+        type:mongoose.Types.ObjectId,
+        ref: "Logging"
+    }]
 },{
     timestamps: true
 })

@@ -32,10 +32,14 @@ const userSchema = new mongoose.Schema({
     country:{
         type: String
     },
-    // role:{
-    //     type: Number,
-    //     default: 0
-    // },
+    reservation:[{
+        type: mongoose.Types.ObjectId,
+        ref: "Reservations"
+    }],
+    role:{
+        type: Number,
+        default: 0
+    },
 },{
     timestamps: true
 })

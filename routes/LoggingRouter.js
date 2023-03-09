@@ -2,6 +2,8 @@ const express = require("express");
 const LoggingRouter = express.Router();
 const Logging = require("../models/Logging");
 
+ let myLogging;
+
 LoggingRouter.post("/register/logging", async (req, res) => {
   const { location, name, title, description, price } = req.body;
   try {
@@ -19,7 +21,7 @@ LoggingRouter.post("/register/logging", async (req, res) => {
       });
     }
 
-    let myLogging = new Logging({
+    myLogging = new Logging({
       location,
       name,
       title,
@@ -83,4 +85,51 @@ LoggingRouter.get("/logging/:id", async (req, res) => {
     });
   }
 });
+
+LoggingRouter.put("/logging_modify/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {name, title, description, price } = req.body;
+    let logging = await Logging.findByIdAndUpdate(id,{name, title, description, price})
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message: "There is no logging with that Id"
+      })
+    }
+    
+    return res.status(200).send({
+      success: true,
+      message: "Logging updated correctly!",
+      logging
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+LoggingRouter.delete("/logging/:id", async (req, res) => {
+  try {
+    const {id} = req. params;
+    await Logging.findByIdAndDelete(id)
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message: "Logging not found"
+      })
+    }
+   return res.status(200).send({
+    success: true,
+    message: "Logging deleted correctly"
+   }) 
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
 module.exports = LoggingRouter;

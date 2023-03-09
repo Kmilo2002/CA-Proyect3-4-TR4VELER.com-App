@@ -1,7 +1,10 @@
 const express = require("express");
 const UserRouter = express.Router();
 const User = require("../models/User");
+const Reservations = require("../models/Reservations")
 const UserLog_in = require("../models/Log_in");
+
+let myUser;
 
 UserRouter.post("/register/user", async (req, res) => {
   const { name, surname, email, password, phone, city, country } = req.body;
@@ -47,7 +50,7 @@ UserRouter.post("/register/user", async (req, res) => {
       });
     }
 
-    let myUser = new User({
+    myUser = new User({
       name,
       surname,
       email,
@@ -121,7 +124,9 @@ UserRouter.get("/users", async (req, res) => {
 UserRouter.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let user = await User.findById(id);
+    //let user = await User.findById(id).select("Reservations").populate("reservation")
+    //let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"room days meals"})
+    let user = await User.findById(id)
     if (!user) {
       return res.status(404).send({
         success: false,
@@ -139,4 +144,57 @@ UserRouter.get("/users/:id", async (req, res) => {
     });
   }
 });
+
+UserRouter.put("/users_modify/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+    const {password, email, phone, city, country} = req.body;
+    let user = await User.findByIdAndUpdate(id,{password, email, phone, city, country})
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message: "There is no user with that Id"
+      })
+    }
+    return res.status(200).send({
+      succes: true,
+      message: "User Updated!",
+      user
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+UserRouter.delete("/users/:id/:reservationId", async (req, res) => {
+  try {
+    const {id, reservationId} = req.params;
+    await Reservations.findByIdAnddelete(reservationId, {
+      $pull:{
+        registration: _id
+      }
+    })
+    await User.findByIdAndDelete(id);
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message:"User not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User deleted correctly!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+
 module.exports = UserRouter;
