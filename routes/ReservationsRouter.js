@@ -7,7 +7,7 @@ const Logging = require("../models/Logging")
 let myReservation;
 
 ReservationsRouter.post("/register/reservation", async (req, res) =>{
-    const { days, persons, meals, userId, loggingId } = req.body;
+    const { days, persons, meals, userId, loggingId, paymentId } = req.body;
     try {
      let daysFind = await Reservations.findOne({days});
      if(daysFind){
@@ -17,7 +17,7 @@ ReservationsRouter.post("/register/reservation", async (req, res) =>{
           "¡Fechas no disponibles!",
       });
      }
-     if( !days|| !persons|| !meals|| !userId|| !loggingId ){
+     if( !days|| !persons|| !meals|| !userId|| !loggingId|| !paymentId ){
         return res.status(400).send({
         success: false,
         message:

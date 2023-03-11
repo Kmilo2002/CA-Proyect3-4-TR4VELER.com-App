@@ -124,7 +124,7 @@ UserRouter.get("/users", async (req, res) => {
 UserRouter.get("/users/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    //let user = await User.findById(id).select("Reservations").populate("reservation")
+    //let user = await User.findById(id).select("reservation").populate("reservation")
     //let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"room days meals"})
     let user = await User.findById(id)
     if (!user) {
@@ -144,6 +144,28 @@ UserRouter.get("/users/:id", async (req, res) => {
     });
   }
 });
+
+UserRouter.get("/user/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"days persons meals"})
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "¡There is no user with that id!",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
 
 UserRouter.put("/users_modify/:id", async (req, res) => {
   try {
