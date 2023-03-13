@@ -2,9 +2,11 @@ const express = require("express");
 const UserRouter = express.Router();
 const User = require("../models/User");
 const Reservations = require("../models/Reservations")
-const UserLog_in = require("../models/Log_in");
+const bcrypt = require("bcrypt")
 
 let myUser;
+
+const salt = bcrypt.genSaltSync(10)
 
 UserRouter.post("/register/user", async (req, res) => {
   const { name, surname, email, password, phone, city, country } = req.body;
@@ -50,22 +52,25 @@ UserRouter.post("/register/user", async (req, res) => {
       });
     }
 
+    let passwordHash = bcrypt.hashSync(password, salt)
     myUser = new User({
       name,
       surname,
       email,
-      password,
+      password: passwordHash,
       phone,
       city,
       country,
     });
 
     await myUser.save();
+    
     return res.status(201).send({
       success: true,
       message: "¡Usuario creado correctamente!",
       myUser,
     });
+
   } catch (error) {
     return res.status(500).send({
       success: false,
@@ -74,22 +79,28 @@ UserRouter.post("/register/user", async (req, res) => {
   }
 });
 
-UserRouter.post("/log_in", async (req, res) => {
-  const { name, password } = req.body;
+UserRouter.post("/users/log_in", async (req, res) => {
+  const { email, password } = req.body;
   try {
-    let userFind = await UserLog_in.findOne({password})
-    if(userFind){
-      return res.status(202).send({
-        success: true,
-        message: "Welcome!"
-      })
-    }
+    const userFind = await User.findOne({email})
     if(!userFind){
       return res.status(404).send({
         success: false,
-        message: "Wrong password! Try again!"
+        message: "Something is wrong, check your credentials(email)!"
       })
     }
+    const passwordOK = bcrypt.compareSync(password, userFind.password)
+    if(!passwordOK){
+      return res.status(404).send({
+        success: false,
+        message: "Something is wrong, check your credentials(password)!"
+      })
+    }
+
+    return res.status(200).send({
+      success: true,
+      message: "Usuario logueado correctamente"
+    })
 
   } catch (error) {
     return res.status(500).send({
