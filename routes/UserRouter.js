@@ -3,10 +3,16 @@ const UserRouter = express.Router();
 const User = require("../models/User");
 const Reservations = require("../models/Reservations")
 const bcrypt = require("bcrypt")
+const jwt = require("jsonwebtoken")
+const auth = require("../middleware/auth")
 
 let myUser;
 
 const salt = bcrypt.genSaltSync(10)
+
+const createToken = (user) => {
+  return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn:"7d"})
+}
 
 UserRouter.post("/register/user", async (req, res) => {
   const { name, surname, email, password, phone, city, country } = req.body;
@@ -52,7 +58,8 @@ UserRouter.post("/register/user", async (req, res) => {
       });
     }
 
-    let passwordHash = bcrypt.hashSync(password, salt)
+    let passwordHash = bcrypt.hashSync(password, salt);
+
     myUser = new User({
       name,
       surname,
@@ -63,12 +70,15 @@ UserRouter.post("/register/user", async (req, res) => {
       country,
     });
 
+    const accessToken = createToken({id: myUser._id})
+
     await myUser.save();
     
     return res.status(201).send({
       success: true,
       message: "¡Usuario creado correctamente!",
       myUser,
+      accessToken,
     });
 
   } catch (error) {
@@ -97,9 +107,12 @@ UserRouter.post("/users/log_in", async (req, res) => {
       })
     }
 
+    const accessToken = createToken({id: userFind._id})
+
     return res.status(200).send({
       success: true,
-      message: "Usuario logueado correctamente"
+      message: "Usuario logueado correctamente",
+      accessToken
     })
 
   } catch (error) {
@@ -110,7 +123,7 @@ UserRouter.post("/users/log_in", async (req, res) => {
   }
 })
 
-UserRouter.get("/users", async (req, res) => {
+UserRouter.get("/users", auth, async (req, res) => {
   try {
     // let usuarios = await User.find({}).select("name surname email") -> Esto es para buscar datos en específicos!!
     let usuarios = await User.find({});
@@ -132,12 +145,12 @@ UserRouter.get("/users", async (req, res) => {
   }
 });
 
-UserRouter.get("/users/:id", async (req, res) => {
+UserRouter.get("/users", auth, async (req, res) => {
   try {
-    const { id } = req.params;
+    //const { id } = req.params;
     //let user = await User.findById(id).select("reservation").populate("reservation")
     //let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"room days meals"})
-    let user = await User.findById(id)
+    let user = await User.findById(req.user.id)
     if (!user) {
       return res.status(404).send({
         success: false,
@@ -156,10 +169,10 @@ UserRouter.get("/users/:id", async (req, res) => {
   }
 });
 
-UserRouter.get("/user/:id", async (req, res) => {
+UserRouter.get("/user", auth, async (req, res) => {
   try {
-    const { id } = req.params;
-    let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"days persons meals"})
+    //const { id } = req.params;
+    let user = await User.findById(req.user.id).select("reservation").populate({path:"reservation", select:"days persons meals"})
     if (!user) {
       return res.status(404).send({
         success: false,
@@ -178,11 +191,11 @@ UserRouter.get("/user/:id", async (req, res) => {
   }
 })
 
-UserRouter.put("/users_modify/:id", async (req, res) => {
+UserRouter.put("/users_modify", auth, async (req, res) => {
   try {
-    const {id} = req.params;
+    //const {id} = req.params;
     const {password, email, phone, city, country} = req.body;
-    let user = await User.findByIdAndUpdate(id,{password, email, phone, city, country})
+    let user = await User.findByIdAndUpdate(req.user.id, {password, email, phone, city, country})
     if(!id){
       return res.status(404).send({
         success: false,
@@ -202,15 +215,15 @@ UserRouter.put("/users_modify/:id", async (req, res) => {
   }
 })
 
-UserRouter.delete("/users/:id/:reservationId", async (req, res) => {
+UserRouter.delete("/users/:reservationId", auth, async (req, res) => {
   try {
-    const {id, reservationId} = req.params;
-    await Reservations.findByIdAnddelete(reservationId, {
+    const {reservationId} = req.params;
+    await Reservations.findByIdAndUpdate(reservationId, {
       $pull:{
         registration: _id
       }
     })
-    await User.findByIdAndDelete(id);
+    await User.findByIdAndDelete(req.user.id);
     if(!id){
       return res.status(404).send({
         success: false,
@@ -229,5 +242,26 @@ UserRouter.delete("/users/:id/:reservationId", async (req, res) => {
   }
 })
 
+UserRouter.delete("/users", auth, async (req, res) => {
+  try {
+    const {id} = req.params;
+    await User.findByIdAndDelete(req.user.id)
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message:"User not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User deleted correctly!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
 
 module.exports = UserRouter;
