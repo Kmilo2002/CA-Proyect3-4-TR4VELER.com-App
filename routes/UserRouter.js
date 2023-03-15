@@ -5,6 +5,7 @@ const Reservations = require("../models/Reservations")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const auth = require("../middleware/auth")
+const authAdmin = require("../middleware/authAdmin")
 
 let myUser;
 
@@ -123,7 +124,29 @@ UserRouter.post("/users/log_in", async (req, res) => {
   }
 })
 
-UserRouter.get("/users", auth, async (req, res) => {
+UserRouter.get("/user", auth, async (req, res) => {
+  try {
+    let user = await User.findById(req.user.id)
+    if(!user){
+      res.status(404).send({
+        success: false,
+        message: "User not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User found!",
+      user
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+UserRouter.get("/users", auth, authAdmin, async (req, res) => {
   try {
     // let usuarios = await User.find({}).select("name surname email") -> Esto es para buscar datos en específicos!!
     let usuarios = await User.find({});
@@ -145,12 +168,12 @@ UserRouter.get("/users", auth, async (req, res) => {
   }
 });
 
-UserRouter.get("/users", auth, async (req, res) => {
+UserRouter.get("/user/:id", auth, authAdmin, async (req, res) => {
   try {
-    //const { id } = req.params;
+    const { id } = req.params;
     //let user = await User.findById(id).select("reservation").populate("reservation")
     //let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"room days meals"})
-    let user = await User.findById(req.user.id)
+    let user = await User.findById(id)
     if (!user) {
       return res.status(404).send({
         success: false,
@@ -196,10 +219,10 @@ UserRouter.put("/users_modify", auth, async (req, res) => {
     //const {id} = req.params;
     const {password, email, phone, city, country} = req.body;
     let user = await User.findByIdAndUpdate(req.user.id, {password, email, phone, city, country})
-    if(!id){
+    if(!user){
       return res.status(404).send({
         success: false,
-        message: "There is no user with that Id"
+        message: "User no found"
       })
     }
     return res.status(200).send({
@@ -224,7 +247,7 @@ UserRouter.delete("/users/:reservationId", auth, async (req, res) => {
       }
     })
     await User.findByIdAndDelete(req.user.id);
-    if(!id){
+    if(!User){
       return res.status(404).send({
         success: false,
         message:"User not found!"
@@ -242,19 +265,36 @@ UserRouter.delete("/users/:reservationId", auth, async (req, res) => {
   }
 })
 
-UserRouter.delete("/users", auth, async (req, res) => {
+UserRouter.delete("/user", auth, async (req, res) => {
+  try {
+    //const {id} = req.params;
+    await User.findByIdAndDelete(req.user.id)
+    if(!User){
+      return res.status(404).send({
+        success: false,
+        message:"User not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User deleted correctly!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+
+UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
-    await User.findByIdAndDelete(req.user.id)
-    if(!id){
-      return res.status(404).send({
-        success: false,
-        message:"User not found!"
-      })
-    }
+    await User.findByIdAndDelete(id)
     return res.status(200).send({
       success: true,
-      message: "User deleted correctly!"
+      message: "User deleted!!"
     })
   } catch (error) {
     return res.status(500).send({
@@ -263,5 +303,4 @@ UserRouter.delete("/users", auth, async (req, res) => {
     });
   }
 })
-
 module.exports = UserRouter;

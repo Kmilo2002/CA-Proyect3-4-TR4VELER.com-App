@@ -1,10 +1,12 @@
 const express = require("express");
+const auth = require("../middleware/auth");
+const authAdmin = require("../middleware/authAdmin");
 const LoggingRouter = express.Router();
 const Logging = require("../models/Logging");
 
  let myLogging;
 
-LoggingRouter.post("/register/logging", async (req, res) => {
+LoggingRouter.post("/register/logging", auth, authAdmin, async (req, res) => {
   const { location, name, title, description, price } = req.body;
   try {
     let loggingFind = await Logging.findOne({ name });
@@ -43,7 +45,7 @@ LoggingRouter.post("/register/logging", async (req, res) => {
   }
 });
 
-LoggingRouter.get("/loggings", async (req, res) => {
+LoggingRouter.get("/loggings", auth, authAdmin, async (req, res) => {
   try {
     let alojamientos = await Logging.find({});
     if (!alojamientos) {
@@ -64,7 +66,7 @@ LoggingRouter.get("/loggings", async (req, res) => {
   }
 });
 
-LoggingRouter.get("/logging/:id", async (req, res) => {
+LoggingRouter.get("/logging/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     let logging = await Logging.findById(id);
@@ -86,7 +88,7 @@ LoggingRouter.get("/logging/:id", async (req, res) => {
   }
 });
 
-LoggingRouter.put("/logging_modify/:id", async (req, res) => {
+LoggingRouter.put("/logging_modify/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
     const {name, title, description, price } = req.body;
@@ -111,7 +113,7 @@ LoggingRouter.put("/logging_modify/:id", async (req, res) => {
   }
 })
 
-LoggingRouter.delete("/logging/:id", async (req, res) => {
+LoggingRouter.delete("/logging/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req. params;
     await Logging.findByIdAndDelete(id)
@@ -132,4 +134,5 @@ LoggingRouter.delete("/logging/:id", async (req, res) => {
     });
   }
 })
+
 module.exports = LoggingRouter;

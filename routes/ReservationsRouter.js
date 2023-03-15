@@ -1,13 +1,14 @@
 const express = require("express");
 const ReservationsRouter = express.Router();
 const Reservations = require("../models/Reservations")
-const User = require("../models/User")
-const Logging = require("../models/Logging")
+const User = require("../models/User");
+const auth = require("../middleware/auth");
+const authAdmin = require("../middleware/authAdmin");
 
 let myReservation;
 
-ReservationsRouter.post("/register/reservation", async (req, res) =>{
-    const { days, persons, meals, userId, loggingId, paymentId } = req.body;
+ReservationsRouter.post("/register/reservation", auth, async (req, res) =>{
+    const { days, persons, meals, loggingId, paymentId } = req.body;
     try {
      let daysFind = await Reservations.findOne({days});
      if(daysFind){
@@ -17,7 +18,7 @@ ReservationsRouter.post("/register/reservation", async (req, res) =>{
           "¡Fechas no disponibles!",
       });
      }
-     if( !days|| !persons|| !meals|| !userId|| !loggingId|| !paymentId ){
+     if( !days|| !persons|| !meals|| !loggingId|| !paymentId ){
         return res.status(400).send({
         success: false,
         message:
@@ -29,11 +30,11 @@ ReservationsRouter.post("/register/reservation", async (req, res) =>{
         days,
         persons,
         meals,
-        user: userId,
+        user: req.user.id,
         logging: loggingId
      });
 
-     await User.findByIdAndUpdate(userId, {
+     await User.findByIdAndUpdate(req.user.id, {
       $push:{
         reservation: myReservation._id
       }
@@ -54,7 +55,7 @@ ReservationsRouter.post("/register/reservation", async (req, res) =>{
     }
 });
 
-ReservationsRouter.get("/reservations", async (req, res) => {
+ReservationsRouter.get("/reservations", auth, authAdmin, async (req, res) => {
   try {
     let reservas = await Reservations.find({});
     if(!reservas){
@@ -75,7 +76,7 @@ ReservationsRouter.get("/reservations", async (req, res) => {
   }
 })
 
-ReservationsRouter.get("/reservations/:id", async (req, res) => {
+ReservationsRouter.get("/reservations/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
     //let reservation = await Reservations.findById(id).select("User").populate("user")
@@ -98,11 +99,11 @@ ReservationsRouter.get("/reservations/:id", async (req, res) => {
   }
 })
 
-ReservationsRouter.put("/reservations_modify/:id", async (req, res) => {
+ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
     const {days, persons, meals} = req.body;
-    let reservations = await Reservations.findByIdAndUpdate(id,{days, persons, meals})
+    let reservations = await Reservations.findByIdAndUpdate(id, {days, persons, meals})
     if(!id){
       return res.status(404).send({
         success: false,
@@ -122,10 +123,10 @@ ReservationsRouter.put("/reservations_modify/:id", async (req, res) => {
   }
 })
 
-ReservationsRouter.delete("/reservations/:id/:userId", async (req, res) => {
+ReservationsRouter.delete("/reservations/:id", auth, async (req, res) => {
   try {
-    const {id, userId} = req. params;
-    await User.findByIdAndUpdate(userId, {
+    const {id} = req. params;
+    await User.findByIdAndUpdate(req.user.id, {
       $pull:{
         reservation: id
       }
@@ -149,4 +150,25 @@ ReservationsRouter.delete("/reservations/:id/:userId", async (req, res) => {
   }
 })
 
+ReservationsRouter.delete("/reservations/:id", auth, authAdmin, async (req, res) => {
+  try {
+    const {id} = req. params;
+    await Reservations.findByIdAndDelete(id);
+    if(!id){
+      res.status(404).send({
+        success: false,
+        message: "Reservation not found!"
+      })
+    }
+    return res.status(200).send({
+      sucess: true,
+      message: "Reservation deleted correctly!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
 module.exports = ReservationsRouter;

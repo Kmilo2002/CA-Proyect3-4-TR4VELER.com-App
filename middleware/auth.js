@@ -18,6 +18,7 @@ const auth = (req, res, next) => {
         });
       }
       req.user = user
+      console.log(token)
       next()
     });
    
@@ -29,4 +30,4 @@ const auth = (req, res, next) => {
   }
 };
 
-module.exports = auth
+module.exports = auth;
