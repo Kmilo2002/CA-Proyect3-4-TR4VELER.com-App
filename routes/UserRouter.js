@@ -192,7 +192,7 @@ UserRouter.get("/user/:id", auth, authAdmin, async (req, res) => {
   }
 });
 
-UserRouter.get("/user", auth, async (req, res) => {
+UserRouter.get("/user_rev", auth, async (req, res) => {
   try {
     //const { id } = req.params;
     let user = await User.findById(req.user.id).select("reservation").populate({path:"reservation", select:"days persons meals"})
@@ -287,7 +287,6 @@ UserRouter.delete("/user", auth, async (req, res) => {
   }
 })
 
-
 UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
@@ -295,6 +294,21 @@ UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "User deleted!!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+UserRouter.delete("/users", auth, authAdmin, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.user.id)    
+    return res.status(200).send({
+      success: true,
+      message: "Admin deleted!!"
     })
   } catch (error) {
     return res.status(500).send({
