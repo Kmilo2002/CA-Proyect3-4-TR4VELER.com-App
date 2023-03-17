@@ -95,7 +95,7 @@ UserRouter.post("/users/log_in", async (req, res) => {
   try {
     const userFind = await User.findOne({email})
     if(userFind.banned === true){
-      return res.status(400).send({
+      return res.status(403).send({
         success: false,
         message: `${userFind.name}, tu cuenta ha sido bloqueda`
       })
@@ -293,10 +293,37 @@ UserRouter.put("/users_modify", auth, async (req, res) => {
       })
     }
     return res.status(200).send({
-      succes: true,
+      success: true,
       message: "User Updated!",
       user
     })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+UserRouter.put("/user_unbanned/:id", auth, authAdmin, async (req, res) => {
+  try {
+    const {id} = req.params;
+    const userUpdate = await User.findByIdAndUpdate(id, {
+      banned: false
+    },
+    {
+      new: true
+    })
+    if(!userUpdate){
+      return res.status(404).send({
+        success: false,
+        message: "User not found!"
+      })
+    }     
+    return res.status(200).send({
+      success: true,
+      message: "User unbanned"
+  })
   } catch (error) {
     return res.status(500).send({
       success: false,

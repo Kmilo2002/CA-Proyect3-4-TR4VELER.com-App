@@ -84,7 +84,7 @@ ReservationsRouter.get("/reservations", auth, authAdmin, async (req, res) => {
   }
 })
 
-ReservationsRouter.get("/reservations/:id", auth, async (req, res) => {
+ReservationsRouter.get("/reservations/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
     //let reservation = await Reservations.findById(id).select("User").populate("user")
@@ -98,6 +98,27 @@ ReservationsRouter.get("/reservations/:id", auth, async (req, res) => {
     return res.status(200).send({
       success: true,
       reservation
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message
+    })
+  }
+})
+
+ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
+  try {
+    let reservations = await User.findById(req.user.id).select("reservation").populate({})
+    if(!reservations){
+      return res.status(404).send({
+        success: false,
+        message: "No reservations found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      reservations
     })
   } catch (error) {
     return res.status(500).send({
