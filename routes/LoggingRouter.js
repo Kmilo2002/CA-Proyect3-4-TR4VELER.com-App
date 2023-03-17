@@ -116,6 +116,7 @@ LoggingRouter.put("/logging_modify/:id", auth, authAdmin, async (req, res) => {
 LoggingRouter.delete("/logging/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req. params;
+
     await Logging.findByIdAndDelete(id)
     if(!id){
       return res.status(404).send({

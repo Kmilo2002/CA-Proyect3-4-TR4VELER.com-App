@@ -18,7 +18,7 @@ const reservationSchema = new mongoose.Schema({
         ref: "User"
     }],
     logging:[{
-        type:mongoose.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Logging"
     }]
 },{

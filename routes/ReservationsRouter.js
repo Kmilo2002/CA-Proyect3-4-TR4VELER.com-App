@@ -2,6 +2,7 @@ const express = require("express");
 const ReservationsRouter = express.Router();
 const Reservations = require("../models/Reservations")
 const User = require("../models/User");
+const Logging = require("../models/Logging")
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 
@@ -39,6 +40,13 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) =>{
         reservation: myReservation._id
       }
      })
+
+     await Logging.findByIdAndUpdate(req.logging.id, {
+      $push:{
+        reservation: myReservation._id
+      }
+     })
+
      await myReservation.save();
 
      return res.status(201).send({

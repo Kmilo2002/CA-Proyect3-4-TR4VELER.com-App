@@ -94,6 +94,12 @@ UserRouter.post("/users/log_in", async (req, res) => {
   const { email, password } = req.body;
   try {
     const userFind = await User.findOne({email})
+    if(userFind.banned === true){
+      return res.status(400).send({
+        success: false,
+        message: `${userFind.name}, tu cuenta ha sido bloqueda`
+      })
+    }
     if(!userFind){
       return res.status(404).send({
         success: false,
@@ -124,27 +130,43 @@ UserRouter.post("/users/log_in", async (req, res) => {
   }
 })
 
-UserRouter.get("/user", auth, async (req, res) => {
+UserRouter.post('/users_ban/:id', auth, authAdmin, async (req, res) => {
+  const {id} = req.params
   try {
-    let user = await User.findById(req.user.id)
-    if(!user){
-      res.status(404).send({
+    // Busca al usuario en la base de datos
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).send({
         success: false,
-        message: "User not found!"
-      })
+        message: "User not found"
+      });
     }
-    return res.status(200).send({
+
+    // Si el usuario ya está baneado, no hagas nada
+    if (user.banned === true) {
+      return res.status(400).send({
+        success: false,
+        message: `El usuario ${user.name} está baneado`
+      });
+    }
+
+    // Actualiza el campo "banned" en la base de datos
+    user.banned = true;
+    await user.save();
+
+    res.status(200).send({
       success: true,
-      message: "User found!",
-      user
-    })
+      message: `El usuario ${user.name} ha sido baneado`
+    });
   } catch (error) {
     return res.status(500).send({
       success: false,
       message: error.message,
     });
   }
-})
+});
+
 
 UserRouter.get("/users", auth, authAdmin, async (req, res) => {
   try {
@@ -191,6 +213,51 @@ UserRouter.get("/user/:id", auth, authAdmin, async (req, res) => {
     });
   }
 });
+
+UserRouter.get("/user_rev/:id", auth, authAdmin, async (req, res) => {
+  try {
+    const { id } = req.params;
+    let user = await User.findById(id).select("reservation").populate({path:"reservation", select:"days persons meals"})
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "¡There is no user with that id!",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
+
+UserRouter.get("/user", auth, async (req, res) => {
+  try {
+    let user = await User.findById(req.user.id)
+    if(!user){
+      res.status(404).send({
+        success: false,
+        message: "User not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User found!",
+      user
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
 
 UserRouter.get("/user_rev", auth, async (req, res) => {
   try {
@@ -287,13 +354,34 @@ UserRouter.delete("/user", auth, async (req, res) => {
   }
 })
 
+UserRouter.delete("/user/:id/:reservationId", auth, authAdmin, async (req, res) => {
+  try {
+    const {id, reservationId} = req.params;
+    await Reservations.findByIdAndUpdate(reservationId, {
+      $pull:{
+        registration: _id
+      }
+    })
+    await User.findByIdAndDelete(id)
+    return res.status(200).send({
+      success: true,
+      message: "User deleted!!"
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
 UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
     await User.findByIdAndDelete(id)
     return res.status(200).send({
       success: true,
-      message: "User deleted!!"
+      message: "User deleted"
     })
   } catch (error) {
     return res.status(500).send({
@@ -317,4 +405,5 @@ UserRouter.delete("/users", auth, authAdmin, async (req, res) => {
     });
   }
 })
+
 module.exports = UserRouter;

@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const Reservations = require("./Reservations");
 
 const loggingSchema = new mongoose.Schema({
     location:{
@@ -23,7 +24,11 @@ const loggingSchema = new mongoose.Schema({
     },
     map:{
         type: String
-    }
+    },
+    reservation:[{
+        type: mongoose.Types.ObjectId,
+        ref: Reservations
+    }],
 },{
     timestamps: true
 })
