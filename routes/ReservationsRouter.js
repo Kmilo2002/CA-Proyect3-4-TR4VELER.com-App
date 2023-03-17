@@ -21,7 +21,7 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
     if (!days || !persons || !meals || !loggingId || !paymentId) {
       return res.status(400).send({
         success: false,
-        message: "No ha llenado todas las características de su estadía!",
+        message: "No ha llenado todas las características de su estadía!"
       });
     }
 
@@ -112,11 +112,31 @@ ReservationsRouter.get(
   }
 );
 
+ReservationsRouter.get("/reservation/:id", auth, async (req, res) => {
+  try {
+    const {id} = req.params;
+    let reservation = await Reservations.findById(id)
+    if(!reservation){
+      return res.status(404).send({
+        success: false,
+        message: "Reservation not found!"
+      })
+    }
+    return res.status(200).send({
+      success: true,
+      reservation
+    })
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+})
+
 ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
   try {
-    let reservations = await User.findById(req.user.id)
-      .select("reservation")
-      .populate({});
+    let reservations = await User.findById(req.user.id).select("reservation").populate("reservation");
     if (!reservations) {
       return res.status(404).send({
         success: false,
@@ -163,7 +183,7 @@ ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
   }
 });
 
-ReservationsRouter.delete("/reservations/:id", auth, async (req, res) => {
+ReservationsRouter.delete("/reservations_user/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     await User.findByIdAndUpdate(req.user.id, {
@@ -190,8 +210,7 @@ ReservationsRouter.delete("/reservations/:id", auth, async (req, res) => {
   }
 });
 
-ReservationsRouter.delete(
-  "/reservations/:id",
+ReservationsRouter.delete("/reservations_admin/:id",
   auth,
   authAdmin,
   async (req, res) => {
@@ -216,4 +235,5 @@ ReservationsRouter.delete(
     }
   }
 );
+
 module.exports = ReservationsRouter;
