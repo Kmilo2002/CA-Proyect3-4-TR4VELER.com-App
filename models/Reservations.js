@@ -13,14 +13,14 @@ const reservationSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    user:[{
+    user:{
         type: mongoose.Types.ObjectId,
         ref: "User"
-    }],
-    logging:[{
+    },
+    logging:{
         type: mongoose.Types.ObjectId,
         ref: "Logging"
-    }]
+    }
 },{
     timestamps: true
 })

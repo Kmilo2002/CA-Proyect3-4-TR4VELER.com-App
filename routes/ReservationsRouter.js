@@ -9,7 +9,7 @@ const authAdmin = require("../middleware/authAdmin");
 let myReservation;
 
 ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
-  const { days, persons, meals, loggingId, paymentId } = req.body;
+  const { days, persons, meals, loggingId } = req.body;
   try {
     let daysFind = await Reservations.findOne({ days });
     if (daysFind) {
@@ -18,7 +18,7 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
         message: "¡Fechas no disponibles!",
       });
     }
-    if (!days || !persons || !meals || !loggingId || !paymentId) {
+    if (!days || !persons || !meals || !loggingId ) {
       return res.status(400).send({
         success: false,
         message: "No ha llenado todas las características de su estadía!"
@@ -29,8 +29,8 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
       days,
       persons,
       meals,
-      user: req.user.id,
       logging: loggingId,
+      user: req.user.id
     });
 
     await User.findByIdAndUpdate(req.user.id, {
@@ -39,7 +39,7 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
       },
     });
 
-    await Logging.findByIdAndUpdate(req.logging.id, {
+    await Logging.findByIdAndUpdate(loggingId, {
       $push: {
         reservation: myReservation._id,
       },
@@ -115,7 +115,7 @@ ReservationsRouter.get(
 ReservationsRouter.get("/reservation/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
-    let reservation = await Reservations.findById(id)
+    let reservation = await Reservations.findById(id).populate({path:"logging", select: "name title price"})
     if(!reservation){
       return res.status(404).send({
         success: false,
@@ -136,7 +136,7 @@ ReservationsRouter.get("/reservation/:id", auth, async (req, res) => {
 
 ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
   try {
-    let reservations = await User.findById(req.user.id).select("reservation").populate("reservation");
+    let reservations = await User.findById(req.user.id).select("reservation").populate({path:"reservation", select:"logging"});
     if (!reservations) {
       return res.status(404).send({
         success: false,
