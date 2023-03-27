@@ -9,9 +9,11 @@ require("dotenv").config()
 const UserRouter = require("./routes/UserRouter")
 const LoggingRouter = require("./routes/LoggingRouter");
 const ReservationsRouter = require("./routes/ReservationsRouter");
+const cors = require("cors")
 
 app.use(express.json());
 app.use(express.urlencoded({}));
+app.use(cors())
 
 app.use("/api", UserRouter);
 app.use("/api", LoggingRouter);

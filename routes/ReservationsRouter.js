@@ -136,7 +136,7 @@ ReservationsRouter.get("/reservation/:id", auth, async (req, res) => {
 
 ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
   try {
-    let reservations = await User.findById(req.user.id).select("reservation").populate({path:"reservation", select:"logging"});
+    let reservations = await User.findById(req.user.id).select("reservation").populate("reservation");
     if (!reservations) {
       return res.status(404).send({
         success: false,
