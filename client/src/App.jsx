@@ -1,8 +1,10 @@
 
 import './App.css';
 // import React, {useState, useEffect} from "react"
+import Home from './Components/HomePage/Home';
 import Register from "./Components/Register/Register"
 import Login from './Components/Login/Login';
+import LoggingRegister from './Components/Logging/LoggingRegister';
 
 function App() {
 
@@ -37,8 +39,11 @@ function App() {
 
   return (
     <div className="App">
+      <Home></Home>
       <Register></Register>
       <Login></Login>
+      <LoggingRegister></LoggingRegister>
+
       {/* <p>Nombre: {persona.name}</p>
       <p>Edad: {persona.age}</p>
       <button onClick={changePersons} className="button">Change Person</button> 

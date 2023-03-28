@@ -12,5 +12,7 @@ code {
     monospace;
 }
 
-
+:root {
+  text-align: -webkit-center;
+}
 

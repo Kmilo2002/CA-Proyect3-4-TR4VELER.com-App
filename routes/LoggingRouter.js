@@ -6,7 +6,7 @@ const Logging = require("../models/Logging");
 
  let myLogging;
 
-LoggingRouter.post("/register/logging", auth, authAdmin, async (req, res) => {
+LoggingRouter.post("/register/logging",  async (req, res) => {
   const { location, name, title, description, price } = req.body;
   try {
     let loggingFind = await Logging.findOne({ name });

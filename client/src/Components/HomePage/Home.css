@@ -1,0 +1,40 @@
+.mainTitle {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.header {
+    width: 97%;
+}
+.BigBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 97%;
+}
+
+.Box1, .Box2 {
+    margin: 15px;
+}
+
+@media screen  and (max-width: 430px) {
+  .BigBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .Box1 {
+    margin-bottom: -2px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .Box2 {
+    margin-top: -2px;
+  }
+}

@@ -1,2 +1,86 @@
+.header {
+    width: 99%;
+}
 
+.button1,
+.button2 {
+  width: 250px;
+  height: 50px;
+  margin: 5px;
+  background-color: blue;
+  box-shadow: 2px 2px 2px 2px rgba(32, 32, 32, 0.4);
+}
 
+.button2 {
+  background-color: gray;
+}
+
+.button1:hover,
+.button2:hover {
+  color: black;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.input {
+  width: 97%;
+}
+
+.title {
+    margin-left: 8px;
+}
+
+.label {
+  width: 97%;
+  margin-left: 28px;
+}
+
+@media screen and (max-width: 1390px) {
+ .label {
+    width: 97%;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+ .label {
+    width: 100%;
+    margin-left: 5px;
+    height: 932;
+  }
+}
+
+.BigBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 97%;
+}
+
+.Box1, .Box2 {
+    margin: 15px;
+}
+
+@media screen  and (max-width: 430px) {
+  .BigBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .Box1 {
+    margin-bottom: -2px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .Box2 {
+    margin-top: -2px;
+  }
+}
+
+.cardtext {
+    color: black,
+}

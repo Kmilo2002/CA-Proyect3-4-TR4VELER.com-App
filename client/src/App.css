@@ -1,13 +1,9 @@
 .App {
-  text-align: center;
+  text-align: -webkit-center;
+  width: 98%;
 }
 
-.App-Logo {
-  width: 100px;
-  height: 100px;
+div {
+  width: 99.5%;
 }
-
-.button {
-  width: 125px;
-  height: 50px;
-}
+  
