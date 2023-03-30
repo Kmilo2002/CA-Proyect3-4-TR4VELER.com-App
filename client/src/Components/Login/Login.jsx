@@ -4,7 +4,7 @@ import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
 import { Card, CardImg, CardBody, CardText } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
-import NavBars from "../NavBars/NavBars.jsx";
+import { Link } from "react-router-dom"
 import "../Login/Login.css";
 
 const Login = () => {
@@ -32,8 +32,20 @@ const Login = () => {
       );
       console.log(response.data);
       setSuccessM(response.data.message);
+      localStorage.setItem("name", response.data.userFind.name);
+      localStorage.setItem("role", response.data.userFind.role);
+      localStorage.setItem("token", response.data.accessToken)
+
+      setTimeout(() => {
+        window.location.href = "/"
+      }, 2000);
+      
     } catch (error) {
       setErrorM(error.response.data.message);
+
+      setTimeout(() => {
+        window.location.href = "/login"
+      }, 1500);
     }
   };
 
@@ -42,7 +54,6 @@ const Login = () => {
       <header className="header">
         <h1>Login</h1>
       </header>
-      <NavBars></NavBars>
       <Form onSubmit={loginSubmit}>
         <FormGroup floating>
           <Input
@@ -80,9 +91,10 @@ const Login = () => {
         </FormGroup>{" "}
         <br />
         <Button className="button1">Login &gt;</Button> <br />
-        <Button className="button2">&lt; Cancelar</Button>
+        <Link to = {"/"} ><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
       <Divider orientation="horizontal" />
+      <p>¿No tienes una cuenta? Entonces, <Link to = {"/register"}>Registrate</Link></p>
       <div
         className="alert alert-primary"
         role="alert"
@@ -105,7 +117,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "190px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -116,7 +128,7 @@ const Login = () => {
               }}
             />
             <CardBody>
-            <CardText>
+            <CardText className="cardtext">
               Ciudad 1
             </CardText>
             </CardBody>
@@ -127,7 +139,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "190px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -137,6 +149,11 @@ const Login = () => {
                 height: "190px",
               }}
             />
+            <CardBody>
+            <CardText className="cardtext">
+              Ciudad 2
+            </CardText>
+            </CardBody>
           </Card>
           <Card
             className="my-2"
@@ -144,7 +161,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "190px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -154,6 +171,11 @@ const Login = () => {
                 height: "190px",
               }}
             />
+            <CardBody>
+            <CardText className="cardtext">
+              Ciudad 3
+            </CardText>
+            </CardBody>
           </Card>
         </div>
         <div className="Box2">
@@ -163,7 +185,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "190px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -173,6 +195,11 @@ const Login = () => {
                 height: "190px",
               }}
             />
+            <CardBody>
+            <CardText className="cardtext">
+              Ciudad 4
+            </CardText>
+            </CardBody>
           </Card>
           <Card
             className="my-2"
@@ -180,7 +207,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "195px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -190,6 +217,11 @@ const Login = () => {
                 height: "190px",
               }}
             />
+            <CardBody>
+            <CardText className="cardtext">
+              Ciudad 5
+            </CardText>
+            </CardBody>
           </Card>
           <Card
             className="my-2"
@@ -197,7 +229,7 @@ const Login = () => {
             inverse
             style={{
               width: "380px",
-              height: "190px",
+              height: "230px",
             }}
           >
             <CardImg
@@ -207,6 +239,11 @@ const Login = () => {
                 height: "190px",
               }}
             />
+            <CardBody>
+            <CardText className="cardtext">
+              Ciudad 6
+            </CardText>
+            </CardBody>
           </Card>
         </div>
       </div>

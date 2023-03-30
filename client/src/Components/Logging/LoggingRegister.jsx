@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
+import NavBars from "../NavBars/NavBars";
+import Footer from "../Footer/Footer"
 import "../Logging/LoggingRegister.css";
 
 const LoggingRegister = () => {
@@ -39,6 +41,7 @@ const LoggingRegister = () => {
 
   return (
     <div>
+      <NavBars></NavBars>
       <header className="header">
       <h1>Register for New Loggings</h1>
       </header>
@@ -116,6 +119,7 @@ const LoggingRegister = () => {
       >
         {errorM}
       </div>
+      <Footer></Footer>
     </div>
   );
 };

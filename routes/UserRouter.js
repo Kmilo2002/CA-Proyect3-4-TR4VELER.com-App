@@ -119,6 +119,7 @@ UserRouter.post("/users/log_in", async (req, res) => {
     return res.status(200).send({
       success: true,
       message: "Usuario logueado correctamente",
+      userFind,
       accessToken
     })
 

@@ -2,6 +2,7 @@ import React from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"
 import "../Register/Register.css";
 
 const Register = () => {
@@ -137,7 +138,7 @@ const Register = () => {
     {' '} */}
     
         <Button className="button1">Registrarse &gt;</Button> <br />
-        <Button className="button1">Ya tengo una cuenta &gt;</Button> <br />
+        <Link to = {"/login"}><Button className="button1">Ya tengo una cuenta &gt;</Button></Link><br />
         <Button className="button2">&lt; Cancelar</Button>
       </Form>
       <div

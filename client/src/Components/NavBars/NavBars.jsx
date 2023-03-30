@@ -1,12 +1,89 @@
-import React from 'react'
+import React from "react";
+// import { Link } from "react-router-dom";
+import "./NavBars.css";
 
 const NavBars = () => {
-    
-  return (
-    <div>
+  const role = localStorage.getItem("role");
+  const name = localStorage.getItem("name");
 
-    </div>
-  )
-}
+  const navHome = () => {
+    return (
+      <nav className="navbar bg-dark" data-bs-theme="dark">
+        <div className="container-fluid">
+          <p className="title">Bienvenido</p>
+          <form className="d-flex" role="search">
+            <ul>
+                {/* <Link to={"/Login"}>
+                  Inicio de Sesión
+                </Link>
+               */}
+              {/* <li className="nav-item">
+                <Link to={"/Register"} className="nav-link">
+                  Regístrate
+                </Link>
+              </li> */}
+            </ul>
 
-export default NavBars
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Buscar"
+              aria-label="Search"
+            />
+            <button className="btn btn-outline-success" type="submit">
+              Buscar
+            </button>
+          </form>
+        </div>
+      </nav>
+    );
+  };
+
+  const navUser = () => {
+    return (
+      <nav className="navbar bg-dark" data-bs-theme="dark">
+        <div className="container-fluid">
+          <p>Hola, {name} </p>
+          <form className="d-flex" role="search">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Buscar"
+              aria-label="Search"
+            />
+            <button className="btn btn-outline-success" type="submit">
+              Buscar
+            </button>
+          </form>
+        </div>
+      </nav>
+    );
+  };
+
+  const navAdmin = () => {
+    return (
+      <nav className="navbar bg-dark" data-bs-theme="dark">
+        <div className="container-fluid">
+          <p>Hola, {name} </p>
+          <form className="d-flex" role="search">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Buscar"
+              aria-label="Search"
+            />
+            <button className="btn btn-outline-success" type="submit">
+              Buscar
+            </button>
+          </form>
+        </div>
+      </nav>
+    );
+  };
+
+  let navbar = role == 0 ? navUser() : role == 1 ? navAdmin() : navHome();
+
+  return <div>{navbar}</div>;
+};
+
+export default NavBars;

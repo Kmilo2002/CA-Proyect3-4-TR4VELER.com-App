@@ -61,11 +61,16 @@
     margin: 15px;
 }
 
+.cardtext {
+  margin-top: -8.5px;
+}
+
 @media screen  and (max-width: 430px) {
   .BigBox {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
   }
 }
 
