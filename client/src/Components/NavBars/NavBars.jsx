@@ -1,11 +1,11 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+
 import "./NavBars.css";
 
 const NavBars = () => {
   const role = localStorage.getItem("role");
   const name = localStorage.getItem("name");
-
+ 
   const navHome = () => {
     return (
       <nav className="navbar bg-dark" data-bs-theme="dark">
@@ -13,17 +13,9 @@ const NavBars = () => {
           <p className="title">Bienvenido</p>
           <form className="d-flex" role="search">
             <ul>
-                {/* <Link to={"/Login"}>
-                  Inicio de Sesión
-                </Link>
-               */}
-              {/* <li className="nav-item">
-                <Link to={"/Register"} className="nav-link">
-                  Regístrate
-                </Link>
-              </li> */}
-            </ul>
-
+               <a href="/register"><li>Regístrate</li></a>
+               <a href="/login"><li>Inicio de Sesión</li></a>   
+            </ul> 
             <input
               className="form-control me-2"
               type="search"
@@ -43,7 +35,7 @@ const NavBars = () => {
     return (
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
-          <p>Hola, {name} </p>
+          <p className="title">Hola, {name} </p>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"
@@ -64,7 +56,7 @@ const NavBars = () => {
     return (
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
-          <p>Hola, {name} </p>
+          <p className="title">Hola, {name} </p>
           <form className="d-flex" role="search">
             <input
               className="form-control me-2"

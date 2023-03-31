@@ -95,10 +95,11 @@ const Login = () => {
       </Form>
       <Divider orientation="horizontal" />
       <p>¿No tienes una cuenta? Entonces, <Link to = {"/register"}>Registrate</Link></p>
+      <p>¿Haz olvidado tu <Link>contraseña?</Link></p>
       <div
         className="alert alert-primary"
         role="alert"
-        style={{ display: succesM ? "block" : "none" }}
+        style= {{ display: succesM ? "block" : "none" }}
       >
         {succesM}
       </div>

@@ -3,3 +3,9 @@
     color: white;
     font-weight: bold;
 }
+
+ul li {
+    list-style: none;
+    display: inline-block;
+  }
+  

@@ -1,96 +1,117 @@
-import React from 'react'
-import { useState } from 'react'
+import React from "react";
+import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
-import axios from 'axios'
-import NavBars from '../NavBars/NavBars'
-import Footer from '../Footer/Footer'
+import { Divider } from "@chakra-ui/react";
+import axios from "axios";
 
 const ConfirmationData = () => {
-    const [confirmData, setconfirmData] = useState({
-        name: "",
-        surname: "",
-        email: "",
-        phone: "",
-    })
+  const [confirmData, setconfirmData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    phone: "",
+  });
 
-    const [succesM, setSuccessM] = useState(null)
+  const token = localStorage.getItem("token");
 
-    const [errorM, setErrorM] = useState(null)
+  const [errorM, setErrorM] = useState(null);
 
-    const onChangeInput = (e) => {
-        const { name, value } = e.target
-        setconfirmData({ ...reservation, [name]: value })
-        console.log(confirmData)
-    }
+  const onChangeInput = (e) => {
+    const { name, value } = e.target;
+    setconfirmData({ ...confirmData, [name]: value });
+    console.log(confirmData);
+  };
 
-    const confirmDataSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post("", {...reservation});
-            console.log(response);
-            setSuccessM(response.data.message)
-        } catch (error) {
-            setErrorM(error.response.data.message)
+  const confirmDataSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3500/api/register/reservation",
+        {
+          headers: {
+            Authorization: token,
+          },
         }
+      );
+      console.log(response);
+    } catch (error) {
+      setErrorM(error.response.data.message);
     }
-
+  };
 
   return (
     <div>
-        <NavBars></NavBars>
-       <Form onSubmit={confirmDataSubmit}>
+      <h2>Confirmación de datos</h2>
+      <Form onSubmit={confirmDataSubmit}>
         <FormGroup floating>
-          <Input className="input"
+          <Input
+            className="input"
             id="name"
             name="name"
-            value={user.name}
+            value={confirmData.name}
             placeholder="Name"
             type="text"
             onChange={onChangeInput}
           />
-          <Label for="exampleName" className="label">Name</Label>
+          <Label for="exampleName" className="label">
+            Name
+          </Label>
         </FormGroup>{" "}
         <FormGroup floating>
-          <Input className="input"
+          <Input
+            className="input"
             id="surname"
             name="surname"
-            value={user.surname}
+            value={confirmData.surname}
             placeholder="Surname"
             type="text"
             onChange={onChangeInput}
           />
-          <Label for="exampleSurname" className="label">Surname</Label>
+          <Label for="exampleSurname" className="label">
+            Surname
+          </Label>
         </FormGroup>{" "}
         <FormGroup floating>
-          <Input className="input"
+          <Input
+            className="input"
             id="exampleEmail"
             name="email"
-            value={user.email}
+            value={confirmData.email}
             placeholder="Email"
             type="email"
             onChange={onChangeInput}
           />
-          <Label for="exampleEmail" className="label">Email</Label>
+          <Label for="exampleEmail" className="label">
+            Email
+          </Label>
         </FormGroup>{" "}
         <FormGroup floating>
-          <Input className="input"
+          <Input
+            className="input"
             id="examplePhoneNumber"
             name="phone"
-            value={user.phone}
+            value={confirmData.phone}
             placeholder="PhoneNumber"
             type="text"
             onChange={onChangeInput}
           />
-          <Label for="examplePhoneNumber" className="label">Phone Number</Label>
-        </FormGroup>{" "} 
-        <Button className="button1">Pagar &gt;</Button> <br />
+          <Label for="examplePhoneNumber" className="label">
+            Phone Number
+          </Label>
+        </FormGroup>{" "}
+        <Divider orientation="horizontal" />
         <Button className="button2">&lt; Cancelar</Button>
-        </Form>
-        <div></div>
-        <div></div>
-        <Footer></Footer>
+        <Button className="button1">Pagar &gt;</Button>
+      </Form>
+      <div
+        className="alert alert-warning"
+        role="alert"
+        style={{ display: errorM ? "block" : "none" }}
+      >
+        {errorM}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ConfirmationData
+export default ConfirmationData;
