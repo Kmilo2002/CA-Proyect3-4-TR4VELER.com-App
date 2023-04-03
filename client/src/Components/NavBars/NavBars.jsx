@@ -11,11 +11,11 @@ const NavBars = () => {
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
           <p className="title">Bienvenido</p>
-          <form className="d-flex" role="search">
-            <ul>
+          <ul>
                <a href="/register"><li>Regístrate</li></a>
                <a href="/login"><li>Inicio de Sesión</li></a>   
             </ul> 
+          <form className="d-flex" role="search">
             <input
               className="form-control me-2"
               type="search"

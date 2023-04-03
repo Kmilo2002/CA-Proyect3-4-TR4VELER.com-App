@@ -1,0 +1,30 @@
+.color-red {
+    background-color: red;
+}
+
+.button1,
+.button2,
+.card {
+  width: 250px;
+  height: 50px;
+  margin: 5px;
+  background-color: gray;
+  box-shadow: 2px 2px 2px 2px rgba(32, 32, 32, 0.4);
+}
+
+.button2 {
+  background-color: red;
+}
+
+.button1:hover,
+.button2:hover {
+  color: black;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.card-text {
+  font-size: 17px;
+  font-weight: normal;
+  text-align: left;
+}
