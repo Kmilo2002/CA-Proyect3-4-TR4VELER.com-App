@@ -83,11 +83,9 @@ const Login = () => {
             Password
           </Label>
         </FormGroup>{" "}
-        <FormGroup className="input">
-          <Input name="checkbox" type="checkbox" />
-          <Label className="title" check for="Checkbox">
-            &#32; Recuérdame
-          </Label>
+        <FormGroup inline>
+          <Input type="checkbox" />
+          <Label check className="title2">Recuérdame</Label>
         </FormGroup>{" "}
         <br />
         <Button className="button1">Login &gt;</Button> <br />

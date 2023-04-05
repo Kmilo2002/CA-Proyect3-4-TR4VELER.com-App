@@ -5,9 +5,11 @@ import Login from '../Login/Login'
 import ModifyUser from '../ModifyUser/ModifyUser'
 import ConfirmationData from '../PaymentConfimationData/ConfirmationData'
 import Register from '../Register/Register'
-import UserProfile from '../UserProfile.jsx/UserProfile'
+import UserProfile from '../UserProfile/UserProfile'
 import EraseUser from '../EraseUser/EraseUser'
 import Loggings from '../Loggings/Loggings'
+import LoggingRegister from '../Logging/LoggingRegister'
+import Loggings2 from '../Loggings/Loggings2'
 
 
 
@@ -23,6 +25,8 @@ const Pages = () => {
             <Route path = '/confirmReserv' element = {<ConfirmationData/>}/>
             <Route path = '/erase_user' element = {<EraseUser />}/>
             <Route path = '/loggings' element = {<Loggings />} />
+            <Route path = '/loggings2' element = {<Loggings2 />} />
+            <Route path = '/logging_register' element = {<LoggingRegister />} />
         </Routes>
   )
 }

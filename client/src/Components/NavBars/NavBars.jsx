@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./NavBars.css";
 
 const NavBars = () => {
@@ -22,7 +21,7 @@ const NavBars = () => {
               placeholder="Buscar"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-light" type="submit">
               Buscar
             </button>
           </form>
@@ -35,18 +34,8 @@ const NavBars = () => {
     return (
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
+          <p className="title">TRAVELER.com</p>
           <p className="title">Hola, {name} </p>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Buscar"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Buscar
-            </button>
-          </form>
         </div>
       </nav>
     );
@@ -56,18 +45,8 @@ const NavBars = () => {
     return (
       <nav className="navbar bg-dark" data-bs-theme="dark">
         <div className="container-fluid">
+          <p className="title">TRAVELER.com</p>
           <p className="title">Hola, {name} </p>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Buscar"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success" type="submit">
-              Buscar
-            </button>
-          </form>
         </div>
       </nav>
     );

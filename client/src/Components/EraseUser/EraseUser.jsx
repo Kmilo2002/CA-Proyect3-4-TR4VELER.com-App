@@ -48,10 +48,11 @@ const EraseUser = () => {
         </span>
       </Alert>
       <Divider orientation="horizontal" />
-      <div className="card" style={{ width: "400px", height: "250px" }}>
-        <div className="card-body">
-          <h1>¡Acción Irreversible!</h1>
-          <FiAlertTriangle></FiAlertTriangle>
+      <div className="card" style={{ width: "400px", height: "275px" }}>
+      <div className="card-body">
+        <h1>¡Acción Irreversible!</h1>
+          <FiAlertTriangle className="alert2"></FiAlertTriangle>
+          <Divider orientation="horizontal" />
           <p className="card-text">
             Si borra su cuenta, perderá el acceso a nuestra aplicación, deberá
             volver a registrarse y perderá todos los ajustes, así como los filtros 
@@ -59,6 +60,7 @@ const EraseUser = () => {
           </p>
         </div>
       </div>
+      <Divider orientation="horizontal" />
       <Form onSubmit={eraseSubmit}>
         <p>Introduzca su cotraseña para borrar su cuenta</p>
         <FormGroup floating>
@@ -79,7 +81,7 @@ const EraseUser = () => {
         <Button className="button2">Borrar Cuenta</Button>
         <br />
         <Link to={"/profile"}>
-          <Button className="button1">&lt; Cancelar</Button>
+          <Button to = "/profile" className="button1">&lt; Cancelar</Button>
         </Link>
         <div
           className="alert alert-primary"

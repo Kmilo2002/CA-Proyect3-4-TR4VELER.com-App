@@ -2,8 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
-import NavBars from "../NavBars/NavBars";
-import Footer from "../Footer/Footer"
 import "../Logging/LoggingRegister.css";
 
 const LoggingRegister = () => {
@@ -13,7 +11,11 @@ const LoggingRegister = () => {
     title: "",
     description: "",
     price: "",
+    map: "",
   });
+
+  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -29,9 +31,11 @@ const LoggingRegister = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3500/api/register/logging",
-        { ...logging }
-      );
+        "http://localhost:3500/api/register/logging", {
+          headers: {
+            Authorization: token
+          }
+        });
       console.log(response);
       setSuccessM(response.data.message);
     } catch (error) {
@@ -41,7 +45,6 @@ const LoggingRegister = () => {
 
   return (
     <div>
-      <NavBars></NavBars>
       <header className="header">
       <h1>Register for New Loggings</h1>
       </header>
@@ -101,6 +104,17 @@ const LoggingRegister = () => {
           />
           <Label for="Price" className="label">Price</Label>
         </FormGroup>{" "}
+        <FormGroup floating>
+          <Input className="input"
+            id="map"
+            name="map"
+            value={logging.map}
+            placeholder="Address"
+            type="text"
+            onChange={onChangeInput}
+          />
+          <Label for="Address" className="label">Address</Label>
+        </FormGroup>{" "}
         <Button className="button1">Registro de Alojamiento &gt;</Button>
         <br />
         <Button className="button2">&lt; Cancelar</Button>
@@ -119,7 +133,6 @@ const LoggingRegister = () => {
       >
         {errorM}
       </div>
-      <Footer></Footer>
     </div>
   );
 };
