@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
-import "../Logging/LoggingRegister.css";
+import "./LoggingRegister.css";
 
 const LoggingRegister = () => {
   const [logging, setLogging] = useState({

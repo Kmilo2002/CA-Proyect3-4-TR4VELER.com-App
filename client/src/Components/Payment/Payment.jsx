@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
 import axios from "axios";
+import { Link } from "react-router-dom"
 
 const ConfirmationData = () => {
   const [confirmData, setconfirmData] = useState({
@@ -100,7 +101,7 @@ const ConfirmationData = () => {
           </Label>
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
-        <Button className="button2">&lt; Cancelar</Button>
+        <Link to = {'/loggings/:loggingId'}><Button className="button2">&lt; Cancelar</Button></Link>
         <Button className="button1">Pagar &gt;</Button>
       </Form>
       <div

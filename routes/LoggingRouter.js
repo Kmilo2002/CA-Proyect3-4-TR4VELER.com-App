@@ -4,7 +4,7 @@ const authAdmin = require("../middleware/authAdmin");
 const LoggingRouter = express.Router();
 const Logging = require("../models/Logging");
 
- let myLogging;
+let myLogging;
 
 LoggingRouter.post("/register/logging",  async (req, res) => {
   const { location, name, title, description, price } = req.body;
@@ -66,10 +66,32 @@ LoggingRouter.get("/loggings",  async (req, res) => {
   }
 });
 
-LoggingRouter.get("/logging/:id", auth, async (req, res) => {
+LoggingRouter.get("/loggings/:location",  async (req, res) => {
+  try {
+    const { location } = req.params;
+    let alojamientos = await Logging.find({location});
+    if (!alojamientos) {
+      return res.status(404).send({
+        success: false,
+        message: "¡There is no loggings in DB!",
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      alojamientos,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+LoggingRouter.get("/logging/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    let logging = await Logging.findById(id);
+    let logging = await Logging.findById(id)
     if (!logging) {
       return res.status(404).send({
         success: false,

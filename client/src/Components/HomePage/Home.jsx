@@ -1,6 +1,7 @@
 import React from "react";
 import "../HomePage/Home.css";
 import { Card, CardImg, CardBody, CardText } from "reactstrap";
+import { Link } from "react-router-dom";
 
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
       </Card>
       <div className="BigBox">
         <div className="Box1">
+          <Link>
           <Card
             className="my-2"
             color="dark"
@@ -44,6 +46,8 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
+          <Link>
           <Card
             className="my-2"
             color="dark"
@@ -66,6 +70,8 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
+          <Link>
           <Card
             className="my-2"
             color="dark"
@@ -88,8 +94,11 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
+          
         </div>
         <div className="Box2">
+        <Link>
           <Card
             className="my-2"
             color="dark"
@@ -113,6 +122,8 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
+          <Link>
           <Card
             className="my-2"
             color="dark"
@@ -135,6 +146,8 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
+          <Link>
           <Card
             className="my-2"
             color="dark"
@@ -157,6 +170,7 @@ const Home = () => {
             </CardText>
             </CardBody>
           </Card>
+          </Link>
         </div>
       </div>
     </div>

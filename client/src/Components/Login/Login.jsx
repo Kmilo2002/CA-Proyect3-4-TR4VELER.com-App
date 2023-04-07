@@ -2,10 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
-import { Card, CardImg, CardBody, CardText } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom"
 import "../Login/Login.css";
+import Cards from "../Cards/Cards";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -108,144 +108,7 @@ const Login = () => {
       >
         {errorM}
       </div>
-      <div className="BigBox">
-        <div className="Box1">
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 1
-            </CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 2
-            </CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 3
-            </CardText>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="Box2">
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 4
-            </CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 5
-            </CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-            <CardText className="cardtext">
-              Ciudad 6
-            </CardText>
-            </CardBody>
-          </Card>
-        </div>
-      </div>
+      <Cards />
     </div>
   );
 };

@@ -15,13 +15,15 @@ import {
   CardText,
 } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
-import "./Loggings.css";
+import "./LoggingsSearch.css";
+import Cards from "../Cards/Cards";
 
 let places = [];
 let search = document.getElementById("name")
 
 const Loggings2 = () => {
   const [loggings, setLoggings] = useState([]);
+  const [filter, setFilter] = useState([])
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -111,10 +113,10 @@ const Loggings2 = () => {
                 name="name"
                 placeholder="Name"
                 type="text"
-                onChange={onChangeInput}
+                onChange= {e => setFilter(e.target.value)}
               />
               <Label for="exampleName" className="label">
-                Gestión de alojamiento
+                Búsqueda de Alojamiento
               </Label>
             </FormGroup>
           </Form>
@@ -215,94 +217,10 @@ const Loggings2 = () => {
               </Button>
             </div>
             </div>
+            <Cards />
         </div>
       )}
-      <div className="BigBox">
-        <div className="Box1">
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-              <CardText className="cardtext">Ciudad 1</CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-              <CardText className="cardtext">Ciudad 2</CardText>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="Box2">
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-              <CardText className="cardtext">Ciudad 3</CardText>
-            </CardBody>
-          </Card>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg
-              alt="Card image"
-              src="https://picsum.photos/200/300"
-              style={{
-                height: "190px",
-              }}
-            />
-            <CardBody>
-              <CardText className="cardtext">Ciudad 4</CardText>
-            </CardBody>
-          </Card>
-        </div>
-      </div>
+
     </div>
   );
 };
