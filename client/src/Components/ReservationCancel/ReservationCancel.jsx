@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 
 const ReservationCancel = () => {
-  const [user, setUser] = useState
+  const [reservation, setReservation] = useState([])
 
   const token = localStorage.getItem("token")
+
+
 
   
   return (

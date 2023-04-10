@@ -34,6 +34,7 @@ const Login = () => {
       setSuccessM(response.data.message);
       localStorage.setItem("name", response.data.userFind.name);
       localStorage.setItem("role", response.data.userFind.role);
+      localStorage.setItem("id", response.data.userFind._id)
       localStorage.setItem("token", response.data.accessToken)
 
       setTimeout(() => {

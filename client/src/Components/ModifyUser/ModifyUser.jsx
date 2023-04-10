@@ -2,7 +2,11 @@ import React from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { useState } from "react";
 import { Divider } from "@chakra-ui/react";
+import { TbArrowBackUp } from "react-icons/tb"
+import { MdAddAPhoto } from "react-icons/md"
+import { Link, useParams } from "react-router-dom"
 import axios from "axios";
+import "./ModifyUser.css"
 
 const ModifyUser = () => {
   const [user, setUser] = useState({
@@ -13,6 +17,10 @@ const ModifyUser = () => {
   });
 
   const token = localStorage.getItem("token");
+
+  const {userId} = useParams
+
+
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -26,12 +34,12 @@ const ModifyUser = () => {
       event.preventDefault();
       try {
         const response = await axios.put(
-          "http://localhost:3500/api/users_modify",
+          `http://localhost:3500/api/users_modify/${userId}`,
           {
             headers: {
               Authorization: token,
             },
-          }
+          }, {...user}
         );
         console.log(response.data);
         setSuccessM(response.data.message);
@@ -44,7 +52,10 @@ const ModifyUser = () => {
   
   return (
     <div>
+        <Link to = "/profile/:userId"><TbArrowBackUp className="goBack" /></Link>
         <h2>Modificación de datos del usuario</h2>
+        <MdAddAPhoto className="photo1"/>
+        <Divider orientation="horizontal" />
       <Form onSubmit={modUserSubmit}>
         <FormGroup floating>
           <Input

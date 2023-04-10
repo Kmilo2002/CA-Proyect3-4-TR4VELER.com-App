@@ -6,24 +6,29 @@ import { RiLuggageDepositFill } from "react-icons/ri"
 import { FiThumbsUp, FiAlertOctagon, FiBell } from "react-icons/fi"
 import { FaRegEnvelope } from "react-icons/fa"
 import { BsHouseAdd } from "react-icons/bs"
-import { Link } from "react-router-dom"
+import { MdAddAPhoto } from "react-icons/md"
+import { Link, useParams } from "react-router-dom"
 import { Divider } from "@chakra-ui/react"
+import "./UserProfile.css"
 
 const UserProfile = () => {
     const [user, setUser] = useState({})
 
+    const {userId} = useParams()
+
     const token = localStorage.getItem("token")
+
     const role = localStorage.getItem("role")
 
     const [errorM, setErrorM] = useState(null)
 
     const getUser = async () => {
         try {
-        const response = await axios.get("http://localhost:3500/api/user", {
+        const response = await axios.get(`http://localhost:3500/api/user/${userId}`, {
             headers: {
                 Authorization: token,
             }
-        })
+        }, {...user})
         console.log(response.data)
         setUser(response.data.user)
             
@@ -39,24 +44,26 @@ const UserProfile = () => {
 
   return (
     <div>
-        <h1>Hello, {user.name}</h1>
+        <h1>Perfil del Usuario</h1>
         {
             role == 1 ? 
             (<div>
 
             </div>):
             (<div>
-            <IoMdPerson /><Link to = "/modify_user"><p>Gestiona tu perfil</p></Link>
-            <RiLuggageDepositFill /><Link to = ""><p>Gestiona tus reservas</p></Link>
-            <IoSettingsOutline /><p>Ajustes</p>
-            <IoStarOutline /><p>Danos tu opinión</p>
-            <FiThumbsUp /><p>Compártenos en tus redes sociales</p>
-            <FiAlertOctagon /><p>Notificar un problema</p>
-            <FaRegEnvelope /><p>Contáctanos</p>
-            <FiBell /><p>Notificaciones y alertas</p>
-            <Divider orientation = "horizontal" />
+            <MdAddAPhoto className='photo'/>
+            <Divider orientation = "horizontal" className='divider'/>
+            <IoMdPerson className='icons'/><Link to = "/modify_user/:userId" className='text1'><p>Gestiona tu perfil</p></Link>
+            <RiLuggageDepositFill className='icons'/><Link to = "" className='text1'><p>Gestiona tus reservas</p></Link>
+            <IoSettingsOutline className='icons'/><p>Ajustes</p>
+            <IoStarOutline className='icons'/><p>Danos tu opinión</p>
+            <FiThumbsUp className='icons'/><p>Compártenos en tus redes sociales</p>
+            <FiAlertOctagon className='icons'/><p>Notificar un problema</p>
+            <FaRegEnvelope className='icons'/><p>Contáctanos</p>
+            <FiBell className='icons'/><p>Notificaciones y alertas</p>
+            <Divider orientation = "horizontal" className='divider'/>
             <h4>Colaboración:</h4>
-            <BsHouseAdd /><p>Solicitar unir un alojamiento tuyo</p>
+            <BsHouseAdd className='icons'/><p>Solicitar unir un alojamiento tuyo</p>
             </div>)
         }
     </div>

@@ -1,4 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom"
+import { FiHome } from "react-icons/fi"
+// import { RiLuggageDepositLine } from "react-icons/ri"
 import "./Footer.css"
 
 const Footer = () => {
@@ -24,6 +27,8 @@ const Footer = () => {
           <p className="text">TR4VЄLЄR.com</p>
           </div>
         </nav>
+        {/* <Link ><RiLuggageDepositLine /></Link> */}
+        <Link to = "/"><FiHome className="icons_foot"/></Link>
       </nav>
     );
   };
@@ -36,6 +41,7 @@ const Footer = () => {
           <p className="text">TR4VЄLЄR.com</p>
           </div>
         </nav>
+        <Link to = "/"><FiHome className="icons_foot"/></Link>
       </nav>
     )
   };

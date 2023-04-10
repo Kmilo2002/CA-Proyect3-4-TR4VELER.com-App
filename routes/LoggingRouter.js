@@ -46,7 +46,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
   }
 });
 
-LoggingRouter.get("/loggings", auth, authAdmin, async (req, res) => {
+LoggingRouter.get("/loggings",  async (req, res) => {
   try {
     let alojamientos = await Logging.find({});
     if (!alojamientos) {
