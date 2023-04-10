@@ -16,6 +16,7 @@ import "./LoggingsSearch.css";
 
 const LoggingsSearch = () => {
   const [loggings, setLoggings] = useState([]);
+  
   const [filter, setFilter] = useState([])
 
   const token = localStorage.getItem("token")
@@ -125,33 +126,34 @@ const LoggingsSearch = () => {
         <div className="BigBox">
           <div className="miniBox">
             <p>Adultos: {adults}</p>
-            <Button onClick={incrementAdults} className="button4">
+            <Button onClick={incrementAdults} className = "button4">
               <FaPlus />
             </Button>
-            <Button onClick={decrementAdults} className="button4">
+            <Button onClick={decrementAdults} className = "button4">
               <FaMinus />
             </Button>
           </div>
           <div className="miniBox">
             <p>Niños: {childs}</p>
-            <Button onClick={incrementChilds} className="button4">
+            <Button onClick={incrementChilds} className = "button4">
               <FaPlus />
             </Button>
-            <Button onClick={decrementChilds} className="button4">
+            <Button onClick={decrementChilds} className = "button4">
               <FaMinus />
             </Button>
           </div>
           <div className="miniBox">
             <p>Bebés: {babys}</p>
-            <Button onClick={incrementBabys} className="button4">
+            <Button onClick={incrementBabys} className = "button4">
               <FaPlus />
             </Button>
-            <Button onClick={decrementBabys} className="button4">
+            <Button onClick={decrementBabys} className = "button4">
               <FaMinus />
             </Button>
           </div>
         </div>
-        <Link to = {"/loggings"}><Button className="button1">Buscar</Button></Link>
+        <Link to = {"/loggings"}><Button className = "button1">Buscar &gt;</Button></Link>
+        <Link to = {"/"}><Button className = "button2">&lt; Cancelar</Button></Link>
       </Form>
       <Divider orientation = "horizontal" />
       <Cards />

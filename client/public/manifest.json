@@ -11,6 +11,16 @@
       "src": "istokphoto-507952301-170667a",
       "type": "image/jpg",
       "sizes": "64x64 32x32 24x24 16x16"
+    },
+    {
+      "src": "Logo_1",
+      "type": "image/jpeg",
+      "sizes": "64x64 32x32 24x24 16x16"
+    },
+    {
+      "src": "Logo_2",
+      "type": "image/jpeg",
+      "sizes": "64x64 32x32 24x24 16x16"
     }
   ],
   "start_url": ".",

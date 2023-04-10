@@ -5,7 +5,7 @@ import { Divider } from "@chakra-ui/react";
 import axios from "axios";
 import { Link } from "react-router-dom"
 
-const ConfirmationData = () => {
+const Payment = () => {
   const [confirmData, setconfirmData] = useState({
     name: "",
     surname: "",
@@ -14,6 +14,10 @@ const ConfirmationData = () => {
   });
 
   const token = localStorage.getItem("token");
+
+  const id = localStorage.getItem("id")
+
+  // const 
 
   const [errorM, setErrorM] = useState(null);
 
@@ -101,7 +105,7 @@ const ConfirmationData = () => {
           </Label>
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
-        <Link to = {'/loggings/:loggingId'}><Button className="button2">&lt; Cancelar</Button></Link>
+        <Link to={`/loggings/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
         <Button className="button1">Pagar &gt;</Button>
       </Form>
       <div
@@ -115,4 +119,4 @@ const ConfirmationData = () => {
   );
 };
 
-export default ConfirmationData;
+export default Payment;

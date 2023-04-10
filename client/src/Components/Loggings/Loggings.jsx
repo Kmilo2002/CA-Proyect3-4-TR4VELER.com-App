@@ -4,6 +4,7 @@ import { Card, CardBody } from "reactstrap"
 import { Divider } from '@chakra-ui/react'
 import { Link } from "react-router-dom"
 import { TbArrowBackUp } from "react-icons/tb"
+import "./Loggings.css"
 
 const Loggings = () => {
     const [loggings, setLoggings] = useState([]);
@@ -26,7 +27,7 @@ const Loggings = () => {
 
   return (
     <div>
-        <Link to = {'/loggings_search'}><TbArrowBackUp /></Link> 
+        <Link to = {'/loggings_search'}><TbArrowBackUp className='goBack' /></Link> 
         <h1>Alojamientos</h1>
         {loggings.map((alojamiento) => {
             return (

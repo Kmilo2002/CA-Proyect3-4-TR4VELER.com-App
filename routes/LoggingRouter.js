@@ -7,7 +7,7 @@ const Logging = require("../models/Logging");
 let myLogging;
 
 LoggingRouter.post("/register/logging",  async (req, res) => {
-  const { location, name, title, description, price } = req.body;
+  const { location, name, title, description, price, address } = req.body;
   try {
     let loggingFind = await Logging.findOne({ name });
     if (loggingFind) {
@@ -16,7 +16,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
         message: "Ya existe en Alojamiento con ese nombre!",
       });
     }
-    if (!location || !name || !title || !description || !price) {
+    if (!location || !name || !title || !description || !price || !!address) {
       return res.status(400).send({
         success: false,
         message: "¡No has rellendo todos los datos necesarios!",
@@ -29,6 +29,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
       title,
       description,
       price,
+      address,
     });
 
     await myLogging.save();
@@ -45,7 +46,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
   }
 });
 
-LoggingRouter.get("/loggings",  async (req, res) => {
+LoggingRouter.get("/loggings", auth, authAdmin, async (req, res) => {
   try {
     let alojamientos = await Logging.find({});
     if (!alojamientos) {

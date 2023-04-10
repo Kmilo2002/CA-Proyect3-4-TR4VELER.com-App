@@ -1,8 +1,9 @@
 import React from "react";
+import Cards from "../Cards/Cards";
 import "../HomePage/Home.css";
-import { Card, CardImg, CardBody, CardText } from "reactstrap";
-import { Link } from "react-router-dom";
-
+import { Card, CardImg, Button } from "reactstrap";
+import { Divider } from "@chakra-ui/react"
+import { Link } from "react-router-dom"
 
 const Home = () => {
   return (
@@ -16,163 +17,14 @@ const Home = () => {
           src="https://picsum.photos/900/270?grayscale"
           style={{
             width: "100%",
-            height: "25vh"
+            height: "25vh",
           }}
-          
         />
       </Card>
-      <div className="BigBox">
-        <div className="Box1">
-          <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-              <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-              <CardText className="cardtext">
-              Ciudad 1
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-          <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-              <CardText className="cardtext">
-              Ciudad 2
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-          <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-              <CardText className="cardtext">
-              Ciudad 3
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-          
-        </div>
-        <div className="Box2">
-        <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            
-            <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-            <CardText className="cardtext">
-              Ciudad 4
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-          <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-              <CardText className="cardtext">
-              Ciudad 5
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-          <Link>
-          <Card
-            className="my-2"
-            color="dark"
-            inverse
-            style={{
-              width: "380px",
-              height: "230px",
-            }}
-          >
-            <CardImg  
-              alt="Card image"
-              src="https://picsum.photos/200/300?grayscale"
-              style={{
-                height: "190px",
-              }}
-              />
-              <CardBody>
-              <CardText className="cardtext">
-              Ciudad 6
-            </CardText>
-            </CardBody>
-          </Card>
-          </Link>
-        </div>
-      </div>
+      <Divider orientation = "horizontal" />
+      <Link to = {"/loggings_search"}><Button className="button1">Buscar Alojamiento &gt;</Button></Link>    
+      <Divider orientation = "horizontal" />
+      <Cards />
     </div>
   );
 };
