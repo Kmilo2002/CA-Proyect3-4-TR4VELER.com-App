@@ -9,7 +9,6 @@ import UserProfile from '../UserProfile/UserProfile'
 import EraseUser from '../EraseUser/EraseUser'
 import Loggings from '../Loggings/Loggings'
 import LoggingRegister from '../LoggingRegister/LoggingRegister'
-import LoggingsSearch2 from '../LoggingsSearch/LoggingsSearch2'
 import LoggingsSearch from '../LoggingsSearch/LoggingsSearch'
 import LoggingDetails from '../LoggingDetails/LoggingDetails'
 import Payment from '../Payment/Payment'
@@ -31,7 +30,6 @@ const Pages = () => {
             <Route path = '/erase_user' element = {<EraseUser />} />
             <Route path = '/loggings' element = {<Loggings />} />
             <Route path = '/loggings_search' element = {<LoggingsSearch />} />
-            <Route path = '/loggings_search2' element = {<LoggingsSearch2 />} />
             <Route path = '/logging_register' element = {<LoggingRegister />} />
             <Route path = '/loggings/:loggingId' element = {<LoggingDetails />} />
             <Route path = '/payment' element = {<Payment />} />

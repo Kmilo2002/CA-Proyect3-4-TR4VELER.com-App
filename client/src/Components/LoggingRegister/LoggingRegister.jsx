@@ -2,7 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
+import { Link } from "react-router-dom"
+import { Divider } from "@chakra-ui/react";
 import "./LoggingRegister.css";
+
 
 const LoggingRegister = () => {
   const [logging, setLogging] = useState({
@@ -15,8 +18,6 @@ const LoggingRegister = () => {
   });
 
   const token = localStorage.getItem("token")
-
-  const role = localStorage.getItem("role")
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -40,26 +41,25 @@ const LoggingRegister = () => {
         });
       console.log(response);
       setSuccessM(response.data.message);
+
+      setTimeout(() => {
+        window.location.href = "/loggings"
+      }, 3000);
     } catch (error) {
       setErrorM(error.response.data.message);
+
+      setTimeout(() => {
+        window.location.href = "/logging_register"
+      }, 2000);
     }
   };
-
-  // const notAdmin = () => {
-  //   role == 0 ? 
-  //   ( <div 
-  //   className="alert alert-danger"
-  //   role="alert"
-  //   style={{display: "block"}}>
-  //     <p>¡Usted no es Administrador!</p>
-  //   </div> )
-  // }
 
   return (
     <div>
       <header className="header">
       <h1>Register for New Loggings</h1>
       </header>
+      <Divider orientation = "horizontal" />
       <Form onSubmit={loggingregisterSubmit}>
         <FormGroup floating>
           <Input className="input"
@@ -127,9 +127,10 @@ const LoggingRegister = () => {
           />
           <Label for="Address" className="label">Address</Label>
         </FormGroup>{" "}
-        <Button className="button1" >Registro de Alojamiento &gt;</Button>
+        <Divider orientation = "horizontal" />
+        <Button className="button1">Registro de Alojamiento &gt;</Button>
         <br />
-        <Button className="button2">&lt; Cancelar</Button>
+        <Link to = {"/loggings"}><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
       <div
         className="alert alert-primary"

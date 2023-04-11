@@ -35,14 +35,15 @@ const Register = () => {
       );
       console.log(response);
       setSuccessM(response.data.message);
-      localStorage.setItem("token");
-      localStorage.setItem("role");
-      localStorage.setItem("id");
-      localStorage.setItem("name");
+    
+      localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("role", response.data.myUser.role );
+      localStorage.setItem("id", response.data.myUser._id);
+      localStorage.setItem("name", response.data.myUser.name);
 
       setTimeout(() => {
         window.location.href = '/welcome'
-      }, 500)
+      }, 3000)
 
     } catch (error) {
       setErrorM(error.response.data.message);

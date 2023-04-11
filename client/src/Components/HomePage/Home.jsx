@@ -6,6 +6,9 @@ import { Divider } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 
 const Home = () => {
+
+  const role = localStorage.getItem("role")
+
   return (
     <div>
       <header className="header">
@@ -22,8 +25,21 @@ const Home = () => {
         />
       </Card>
       <Divider orientation = "horizontal" />
-      <Link to = {"/loggings_search"}><Button className="button1">Buscar Alojamiento &gt;</Button></Link>    
-      <Divider orientation = "horizontal" />
+      {
+        role == 1 ? 
+        (<div>
+          <Link to = {"/loggings"}><Button className="button1">Alojamientos</Button></Link> <br />
+          <Link><Button className="button1">Usuarios</Button></Link>
+        </div>) : 
+        role == 0 ?
+        (<div>
+          <Link to = {"/loggings_search"}><Button className="button1">Buscar Alojamientos</Button></Link>
+        </div>) : 
+        (<div>
+          <Link to = {"/loggings_search"}><Button className="button1">Buscar Alojamientos</Button></Link>
+        </div>)
+      }
+      <Divider orientation = "horizontal" />    
       <Cards />
     </div>
   );

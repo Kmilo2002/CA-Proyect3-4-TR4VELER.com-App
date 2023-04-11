@@ -19,7 +19,7 @@ const LoggingsSearch = () => {
   
   const [filter, setFilter] = useState([])
 
-  const token = localStorage.getItem("token")
+  const role = localStorage.getItem("role")
 
   const [errorM, setErrorM] = useState(null);
 
@@ -74,7 +74,86 @@ const LoggingsSearch = () => {
 
   return (
     <div>
-      <h1>¿A dónde vamos?</h1>
+      {
+        role == 0 ? (
+          <div>
+          <h1>¿A dónde vamos?</h1>
+          <Form>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="text"
+                onChange = {e => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                Buscar alojamiento
+              </Label>
+            </FormGroup>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="date"
+                onChange = {e => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                Llegada
+              </Label>
+            </FormGroup>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="date"
+                onChange = {e => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                Salida
+              </Label>
+            </FormGroup>
+            </Form>
+            <div className="BigBox">
+              <p>Total de personas: {Total()}</p>
+              <div className="miniBox">
+              <p>Adultos: {adults}</p>
+              <Button onClick={incrementAdults} className="button4">
+              <FaPlus />
+              </Button>
+              <Button onClick={decrementAdults} className="button4">
+              <FaMinus />
+              </Button>
+              </div>
+              <div className="miniBox">
+              <p>Niños: {childs}</p>
+              <Button onClick={incrementChilds} className="button4">
+              <FaPlus />
+              </Button>
+              <Button onClick={decrementChilds} className="button4">
+              <FaMinus />
+              </Button>
+              </div>
+              <div className="miniBox">
+              <p>Bebés: {babys}</p>
+              <Button onClick={incrementBabys} className="button4">
+              <FaPlus />
+              </Button>
+              <Button onClick={decrementBabys} className="button4">
+              <FaMinus />
+              </Button>
+            </div>
+            </div>
+            <Cards />
+        </div>
+      ) : (
+        <div>
+          <h1>¿A dónde vamos?</h1>
       <Form>
         <FormGroup floating>
           <Input
@@ -157,6 +236,9 @@ const LoggingsSearch = () => {
       </Form>
       <Divider orientation = "horizontal" />
       <Cards />
+        </div>
+      )}
+      
     </div>
   );
 };

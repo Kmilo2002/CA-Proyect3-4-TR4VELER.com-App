@@ -9,6 +9,8 @@ const LoogingDetails = () => {
   const { loggingId } = useParams();
   const [logging, setLogging] = useState({});
 
+  const role = localStorage.getItem("role");
+
   const [errorM, setErrorM] = useState(null);
 
   const getLoggings = async () => {
@@ -72,9 +74,25 @@ const LoogingDetails = () => {
         <h2>Nombre: {logging.name}</h2>
         <h3>Descripción: {logging.description}</h3>
         <h4>Precio: {logging.price} por noche</h4>
-        <Link to={"/payment"}>
-          <Button className="button1">Reservar ahora</Button>
-        </Link>
+        {role == 1 ? (
+          <div>
+            <Link to = {""}><Button className="button1">Modificar</Button></Link>
+            <Link to = {""}><Button className="button3">Borrar</Button></Link>
+          </div>
+        ) : role == 0 ? (
+          <div>
+            <Link to={"/payment"}>
+              <Button className="button1">Reservar ahora</Button>
+            </Link>
+          </div>
+        ) : 
+        (
+          <div>
+            <Link to={"/login"}>
+              <Button className="button1">Reservar ahora</Button>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

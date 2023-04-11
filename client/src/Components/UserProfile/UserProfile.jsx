@@ -44,7 +44,7 @@ const UserProfile = () => {
       <h1>Perfil del Usuario</h1>
       {role == 1 ? (
         <div>
-          <Link to = "/logout"><FiLogOut className="logout" /></Link>
+          <Link to = "/logout" className="link"><FiLogOut className="logout" /></Link>
         </div>
       ) : (
         <div>
