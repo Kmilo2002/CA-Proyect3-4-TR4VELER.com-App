@@ -12,7 +12,7 @@ let myUser;
 const salt = bcrypt.genSaltSync(10)
 
 const createToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn:"7d"})
+  return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn:"1d"})
 }
 
 UserRouter.post("/register/user", async (req, res) => {

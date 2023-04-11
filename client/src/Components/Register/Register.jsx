@@ -35,6 +35,15 @@ const Register = () => {
       );
       console.log(response);
       setSuccessM(response.data.message);
+      localStorage.setItem("token");
+      localStorage.setItem("role");
+      localStorage.setItem("id");
+      localStorage.setItem("name");
+
+      setTimeout(() => {
+        window.location.href = '/welcome'
+      }, 500)
+
     } catch (error) {
       setErrorM(error.response.data.message);
     }

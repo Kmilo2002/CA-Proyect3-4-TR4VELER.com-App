@@ -1,6 +1,6 @@
 import React from "react";
 
-const Reservation_Modify = () => {
+const ReservationModify = () => {
   
   return (
     <div>
@@ -91,4 +91,4 @@ const Reservation_Modify = () => {
   );
 };
 
-export default Reservation_Modify;
+export default ReservationModify;

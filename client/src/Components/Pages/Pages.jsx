@@ -13,7 +13,8 @@ import LoggingsSearch2 from '../LoggingsSearch/LoggingsSearch2'
 import LoggingsSearch from '../LoggingsSearch/LoggingsSearch'
 import LoggingDetails from '../LoggingDetails/LoggingDetails'
 import Payment from '../Payment/Payment'
-
+import Logout from '../Logout/Logout'
+import Welcome from '../Welcome/Welcome'
 
 
 const Pages = () => {
@@ -23,8 +24,9 @@ const Pages = () => {
             <Route path = '/' element = {<Home />} />
             <Route path = '/login' element = {<Login />} />
             <Route path = '/register' element = {<Register />} />
-            <Route path = '/profile/:userId' element = {<UserProfile />} />
-            <Route path = '/modify_user/:userId' element = {<ModifyUser />} />
+            <Route path = '/welcome' element = {<Welcome />} />
+            <Route path = '/profile' element = {<UserProfile />} />
+            <Route path = '/modify_user' element = {<ModifyUser />} />
             <Route path = '/confirmReserv' element = {<ConfirmationData/>}/>
             <Route path = '/erase_user' element = {<EraseUser />} />
             <Route path = '/loggings' element = {<Loggings />} />
@@ -33,6 +35,7 @@ const Pages = () => {
             <Route path = '/logging_register' element = {<LoggingRegister />} />
             <Route path = '/loggings/:loggingId' element = {<LoggingDetails />} />
             <Route path = '/payment' element = {<Payment />} />
+            <Route path = '/logout' element = {<Logout />} />
         </Routes>
   )
 }

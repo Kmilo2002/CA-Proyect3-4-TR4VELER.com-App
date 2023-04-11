@@ -39,7 +39,7 @@ const NavBars = () => {
         <div className="container-fluid">
           <p className="title">TRAVELER.com</p>
           <p className="title">Hola, {name} </p>
-          <Link to = "/profile/:userId"><BsPersonCircle className="icons_nav"/></Link> 
+          <Link to = "/profile"><BsPersonCircle className="icons_nav"/></Link>
         </div>
       </nav>
     );
@@ -51,7 +51,7 @@ const NavBars = () => {
         <div className="container-fluid">
           <p className="title">TRAVELER.com</p>
           <p className="title">Hola, {name} </p>
-          <Link to = "/profile/:userId"><BsPersonCircle className="icons_nav"/></Link>
+          <Link to = "/profile"><BsPersonCircle className="icons_nav"/></Link>
         </div>
       </nav>
     );

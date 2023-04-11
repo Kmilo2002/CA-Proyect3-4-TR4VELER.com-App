@@ -19,3 +19,16 @@
     font-weight: normal;
     text-decoration: none;
 }
+
+.logout {
+    width: 45px;
+    height: 45px;
+    align-self: flex-end;
+}
+
+.Box {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+}

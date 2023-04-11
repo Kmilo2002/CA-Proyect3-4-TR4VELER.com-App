@@ -15,6 +15,7 @@ const LoggingRegister = () => {
   });
 
   const token = localStorage.getItem("token")
+
   const role = localStorage.getItem("role")
 
   const [succesM, setSuccessM] = useState(null);
@@ -31,7 +32,8 @@ const LoggingRegister = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3500/api/register/logging", {
+        "http://localhost:3500/api/register/logging",{...logging}, 
+        {
           headers: {
             Authorization: token
           }
@@ -42,6 +44,16 @@ const LoggingRegister = () => {
       setErrorM(error.response.data.message);
     }
   };
+
+  // const notAdmin = () => {
+  //   role == 0 ? 
+  //   ( <div 
+  //   className="alert alert-danger"
+  //   role="alert"
+  //   style={{display: "block"}}>
+  //     <p>¡Usted no es Administrador!</p>
+  //   </div> )
+  // }
 
   return (
     <div>
@@ -69,7 +81,7 @@ const LoggingRegister = () => {
             type="text"
             onChange={onChangeInput}
           />
-          <Label for="Logging Name" className="label"> Logging Name</Label>
+          <Label for="Logging Name" className="label">Logging Name</Label>
         </FormGroup>{" "}
         <FormGroup floating>
           <Input className="input"
@@ -115,7 +127,7 @@ const LoggingRegister = () => {
           />
           <Label for="Address" className="label">Address</Label>
         </FormGroup>{" "}
-        <Button className="button1">Registro de Alojamiento &gt;</Button>
+        <Button className="button1" >Registro de Alojamiento &gt;</Button>
         <br />
         <Button className="button2">&lt; Cancelar</Button>
       </Form>

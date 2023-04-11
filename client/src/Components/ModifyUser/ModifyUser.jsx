@@ -1,10 +1,10 @@
-import React from "react";
-import { Form, FormGroup, Input, Label, Button } from "reactstrap";
+import React, { useEffect } from "react";
+import { Form, FormGroup, Input, Label, Button, Card, CardBody, CardText } from "reactstrap";
 import { useState } from "react";
 import { Divider } from "@chakra-ui/react";
 import { TbArrowBackUp } from "react-icons/tb"
-import { MdAddAPhoto } from "react-icons/md"
-import { Link, useParams } from "react-router-dom"
+import { BsPersonCircle } from "react-icons/bs"
+import { Link } from "react-router-dom"
 import axios from "axios";
 import "./ModifyUser.css"
 
@@ -14,15 +14,14 @@ const ModifyUser = () => {
     phone: "",
     city: "",
     country: "",
+    password: "",
   });
 
   const token = localStorage.getItem("token");
 
-  const {userId} = useParams
-
-
-
   const [succesM, setSuccessM] = useState(null);
+
+  const [errorM, setErrorM] = useState(null)
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -34,12 +33,12 @@ const ModifyUser = () => {
       event.preventDefault();
       try {
         const response = await axios.put(
-          `http://localhost:3500/api/users_modify/${userId}`,
+          "http://localhost:3500/api/users_modify", {...user},
           {
             headers: {
               Authorization: token,
             },
-          }, {...user}
+          }
         );
         console.log(response.data);
         setSuccessM(response.data.message);
@@ -47,14 +46,38 @@ const ModifyUser = () => {
         setTimeout(() => {
           window.location.href = "/profile";
         }, 2000);
-      } catch (error) {}
+      } catch (error) {
+        setErrorM(error.response.data.message)
+      }
     };
+
+    
+
+    const getUser = async () => {
+      try {
+        const response = await axios.get(
+        "http://localhost:3500/api/user",
+        {
+          headers: {
+            Authorization: token
+          }
+        })
+        console.log(response.data)
+        setUser(response.data.user)
+      } catch (error) {
+        setErrorM(error.response.data.message)
+      }
+    }
+
+    useEffect(() => {
+      getUser()
+    }, [])
   
   return (
     <div>
-        <Link to = "/profile/:userId"><TbArrowBackUp className="goBack" /></Link>
+        <Link to = "/profile"><TbArrowBackUp className="goBack" /></Link>
         <h2>Modificación de datos del usuario</h2>
-        <MdAddAPhoto className="photo1"/>
+        <BsPersonCircle className="photo1"/>
         <Divider orientation="horizontal" />
       <Form onSubmit={modUserSubmit}>
         <FormGroup floating>
@@ -127,15 +150,30 @@ const ModifyUser = () => {
             Password
           </Label>
         </FormGroup>{" "}
+        <Card
+          className="my-2"
+          color="dark"
+          inverse
+          style={{
+            width: "380px",
+            height: "100px",
+          }}
+        >
+        <CardBody>
+          <CardText>
+            Esta cuenta fue creada a través del correo electrónico: {" "}
+            {user.email}
+          </CardText>
+        </CardBody>
+        </Card>
         <Divider orientation="horizontal" />
         <Button className="button1">Guardar cambios</Button> <br />
-        <Button className="button2">Borrar Cuenta</Button>
+      <Link to = '/erase_user'><Button className="button2">Borrar Cuenta</Button></Link>
       </Form>
       <div
         className="alert alert-primary"
         role="alert"
-        style={{ display: succesM ? "block" : "none" }}
-      >
+        style={{ display: succesM ? "block" : "none" }}>
         {succesM}
       </div>
     </div>
