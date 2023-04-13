@@ -51,8 +51,6 @@ const ModifyUser = () => {
       }
     };
 
-    
-
     const getUser = async () => {
       try {
         const response = await axios.get(

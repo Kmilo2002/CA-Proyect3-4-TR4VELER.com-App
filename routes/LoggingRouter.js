@@ -139,14 +139,22 @@ LoggingRouter.put("/logging_modify/:id", auth, authAdmin, async (req, res) => {
 LoggingRouter.delete("/logging/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req. params;
+    const {password} = req.body
 
-    await Logging.findByIdAndDelete(id)
+    if(!password){
+      return res.status(400).send({
+        success: false,
+        message: "Introduzca contraseña"
+      })
+    }
     if(!id){
       return res.status(404).send({
         success: false,
         message: "Logging not found"
       })
     }
+    await Logging.findByIdAndDelete(id)
+    
    return res.status(200).send({
     success: true,
     message: "Logging deleted correctly"

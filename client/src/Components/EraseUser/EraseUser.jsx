@@ -9,7 +9,9 @@ import "./EraseUser.css";
 const EraseUser = () => {
   const [user, setUser] = useState({});
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token")
+
+  const id = localStorage.getItem("id");
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -24,13 +26,18 @@ const EraseUser = () => {
   const eraseSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.delete("http://localhost:3500/api/users", {
+      const response = await axios.delete(`http://localhost:3500/api/user/${id}`, 
+      {
         headers: {
           Authorization: token,
         },
       });
       console.log(response.data);
-      setUser(response.data.message);
+      setSuccessM(response.data.message);
+      localStorage.removeItem("token")
+      localStorage.removeItem("role")
+      localStorage.removeItem("id")
+      localStorage.removeItem("name")
 
       setTimeout(() => {
         window.location.href = "/";
@@ -81,7 +88,7 @@ const EraseUser = () => {
         <Button className="button2">Borrar Cuenta</Button>
         <br />
         <Link to={"/profile"}>
-          <Button to = "/profile" className="button1">&lt; Cancelar</Button>
+          <Button className="button1">&lt; Cancelar</Button>
         </Link>
         <div
           className="alert alert-primary"

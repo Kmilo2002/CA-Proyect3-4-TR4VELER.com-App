@@ -103,14 +103,14 @@ UserRouter.post("/users/log_in", async (req, res) => {
     if(!userFind){
       return res.status(404).send({
         success: false,
-        message: "Something is wrong, check your credentials(email)!"
+        message: "Something is wrong, check your credentials!"
       })
     }
     const passwordOK = bcrypt.compareSync(password, userFind.password)
     if(!passwordOK){
       return res.status(404).send({
         success: false,
-        message: "Something is wrong, check your credentials(password)!"
+        message: "Something is wrong, check your credentials!"
       })
     }
 
@@ -403,14 +403,32 @@ UserRouter.delete("/user/:id/:reservationId", auth, authAdmin, async (req, res) 
   }
 })
 
-UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
+UserRouter.delete("/user/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
+    const {password} = req.body
+
+    if(!password){
+      return res.status(400).send({
+        success: false,
+        message: "Introduzca contraseña"
+      })
+    }
+    
+    if(!id){
+      return res.status(404).send({
+        success: false,
+        message: "Logging not found"
+      })
+    }
+
     await User.findByIdAndDelete(id)
     return res.status(200).send({
       success: true,
       message: "User deleted"
     })
+
+    
   } catch (error) {
     return res.status(500).send({
       success: false,

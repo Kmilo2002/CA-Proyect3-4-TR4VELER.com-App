@@ -7,6 +7,7 @@ import "./LoggingDetails.css";
 
 const LoogingDetails = () => {
   const { loggingId } = useParams();
+
   const [logging, setLogging] = useState({});
 
   const role = localStorage.getItem("role");
@@ -76,8 +77,8 @@ const LoogingDetails = () => {
         <h4>Precio: {logging.price} por noche</h4>
         {role == 1 ? (
           <div>
-            <Link to = {""}><Button className="button1">Modificar</Button></Link>
-            <Link to = {""}><Button className="button3">Borrar</Button></Link>
+            <Link to = {`/loggings_modify/${loggingId}`}><Button className="button1">Modificar</Button></Link> <br/>
+            <Link to = {`/logging_delete/${loggingId}`}><Button className="button3">Borrar</Button></Link>
           </div>
         ) : role == 0 ? (
           <div>

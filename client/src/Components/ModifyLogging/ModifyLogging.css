@@ -1,0 +1,26 @@
+.button1:hover,
+.button2:hover {
+  color: black;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.label {
+    width: 97%;
+    margin-left: 28px;
+  }
+  
+@media screen and (max-width: 1390px) {
+  .label {
+    width: 97%;
+    margin-left: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .label {
+    width: 100%;
+    margin-left: 5px;
+    height: 932;
+  }
+}

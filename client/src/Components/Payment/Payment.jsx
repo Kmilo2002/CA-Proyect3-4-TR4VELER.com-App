@@ -105,8 +105,8 @@ const Payment = () => {
           </Label>
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
-        <Link to={`/loggings/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
         <Button className="button1">Pagar &gt;</Button>
+        <Link to={`/loggings/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
       <div
         className="alert alert-warning"

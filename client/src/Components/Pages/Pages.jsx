@@ -14,6 +14,8 @@ import LoggingDetails from '../LoggingDetails/LoggingDetails'
 import Payment from '../Payment/Payment'
 import Logout from '../Logout/Logout'
 import Welcome from '../Welcome/Welcome'
+import ModifyLogging from '../ModifyLogging/ModifyLogging'
+import EraseLogging from '../EraseLogging/EraseLogging'
 
 
 const Pages = () => {
@@ -32,6 +34,8 @@ const Pages = () => {
             <Route path = '/loggings_search' element = {<LoggingsSearch />} />
             <Route path = '/logging_register' element = {<LoggingRegister />} />
             <Route path = '/loggings/:loggingId' element = {<LoggingDetails />} />
+            <Route path = '/loggings_modify/:loggingId' element = {<ModifyLogging />} />
+            <Route path = '/logging_delete/:loggingId' element = {<EraseLogging />} />
             <Route path = '/payment' element = {<Payment />} />
             <Route path = '/logout' element = {<Logout />} />
         </Routes>

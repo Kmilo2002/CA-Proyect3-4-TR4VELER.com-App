@@ -3,23 +3,17 @@ import axios from "axios";
 import Cards from "../Cards/Cards";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  Form,
-  Input,
-  FormGroup,
-  Label,
-  Button,
-} from "reactstrap";
+import { Form, Input, FormGroup, Label, Button } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
-import { FaPlus, FaMinus } from "react-icons/fa"
+import { FaPlus, FaMinus } from "react-icons/fa";
 import "./LoggingsSearch.css";
 
 const LoggingsSearch = () => {
   const [loggings, setLoggings] = useState([]);
-  
-  const [filter, setFilter] = useState([])
 
-  const role = localStorage.getItem("role")
+  const [filter, setFilter] = useState([]);
+
+  const role = localStorage.getItem("role");
 
   const [errorM, setErrorM] = useState(null);
 
@@ -74,9 +68,8 @@ const LoggingsSearch = () => {
 
   return (
     <div>
-      {
-        role == 0 ? (
-          <div>
+      {role == 0 ? (
+        <div>
           <h1>¿A dónde vamos?</h1>
           <Form>
             <FormGroup floating>
@@ -86,7 +79,7 @@ const LoggingsSearch = () => {
                 name="name"
                 placeholder="Name"
                 type="text"
-                onChange = {e => setFilter(e.target.value)}
+                onChange={(e) => setFilter(e.target.value)}
               />
               <Label for="exampleName" className="label">
                 Buscar alojamiento
@@ -99,7 +92,7 @@ const LoggingsSearch = () => {
                 name="name"
                 placeholder="Name"
                 type="date"
-                onChange = {e => setFilter(e.target.value)}
+                onChange={(e) => setFilter(e.target.value)}
               />
               <Label for="exampleName" className="label">
                 Llegada
@@ -112,133 +105,141 @@ const LoggingsSearch = () => {
                 name="name"
                 placeholder="Name"
                 type="date"
-                onChange = {e => setFilter(e.target.value)}
+                onChange={(e) => setFilter(e.target.value)}
               />
               <Label for="exampleName" className="label">
                 Salida
               </Label>
             </FormGroup>
-            </Form>
-            <div className="BigBox">
-              <p>Total de personas: {Total()}</p>
-              <div className="miniBox">
+          </Form>
+          <div className="BigBox">
+            <p>Total de personas: {Total()}</p>
+            <div className="miniBox">
               <p>Adultos: {adults}</p>
               <Button onClick={incrementAdults} className="button4">
-              <FaPlus />
+                <FaPlus />
               </Button>
               <Button onClick={decrementAdults} className="button4">
-              <FaMinus />
+                <FaMinus />
               </Button>
-              </div>
-              <div className="miniBox">
+            </div>
+            <div className="miniBox">
               <p>Niños: {childs}</p>
               <Button onClick={incrementChilds} className="button4">
-              <FaPlus />
+                <FaPlus />
               </Button>
               <Button onClick={decrementChilds} className="button4">
-              <FaMinus />
+                <FaMinus />
               </Button>
-              </div>
-              <div className="miniBox">
+            </div>
+            <div className="miniBox">
               <p>Bebés: {babys}</p>
               <Button onClick={incrementBabys} className="button4">
-              <FaPlus />
+                <FaPlus />
               </Button>
               <Button onClick={decrementBabys} className="button4">
-              <FaMinus />
+                <FaMinus />
               </Button>
             </div>
-            </div>
-            <Cards />
+            <Link to={"/loggings"}>
+              <Button className="button1">Buscar &gt;</Button>
+            </Link>
+            <Link to={"/"}>
+              <Button className="button2">&lt; Cancelar</Button>
+            </Link>
+          </div>
+          <Cards />
         </div>
       ) : (
         <div>
           <h1>¿A dónde vamos?</h1>
-      <Form>
-        <FormGroup floating>
-          <Input
-            className="input"
-            id="name"
-            name="name"
-            placeholder="Name"
-            type="text"
-            onChange={e => setFilter(e.target.value)}
-          />
-          <Label for="exampleName" className="label">
-            ¿A dónde viaja?
-          </Label>
-        </FormGroup>
-        <FormGroup inline>
-          <Input type="checkbox" />
-          <Label check className="title2">
-            Viajo por trabajo
-          </Label>
-        </FormGroup>
-        <FormGroup floating>
-          <Input
-            className="input"
-            id="name"
-            name="name"
-            placeholder="Name"
-            type="date"
-            onChange= {e => setFilter(e.target.value)}
-          />
-          <Label for="exampleName" className="label">
-            Llegada
-          </Label>
-        </FormGroup>
-        <FormGroup floating>
-          <Input
-            className="input"
-            id="name"
-            name="name"
-            placeholder="Name"
-            type="date"
-            onChange= {e => setFilter(e.target.value)}
-          />
-          <Label for="exampleName" className="label">
-            Salida
-          </Label>
-          
-        </FormGroup>
-        <p>Total de personas: {Total()}</p>
-        <div className="BigBox">
-          <div className="miniBox">
-            <p>Adultos: {adults}</p>
-            <Button onClick={incrementAdults} className = "button4">
-              <FaPlus />
-            </Button>
-            <Button onClick={decrementAdults} className = "button4">
-              <FaMinus />
-            </Button>
-          </div>
-          <div className="miniBox">
-            <p>Niños: {childs}</p>
-            <Button onClick={incrementChilds} className = "button4">
-              <FaPlus />
-            </Button>
-            <Button onClick={decrementChilds} className = "button4">
-              <FaMinus />
-            </Button>
-          </div>
-          <div className="miniBox">
-            <p>Bebés: {babys}</p>
-            <Button onClick={incrementBabys} className = "button4">
-              <FaPlus />
-            </Button>
-            <Button onClick={decrementBabys} className = "button4">
-              <FaMinus />
-            </Button>
-          </div>
-        </div>
-        <Link to = {"/loggings"}><Button className = "button1">Buscar &gt;</Button></Link>
-        <Link to = {"/"}><Button className = "button2">&lt; Cancelar</Button></Link>
-      </Form>
-      <Divider orientation = "horizontal" />
-      <Cards />
+          <Form>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="text"
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                ¿A dónde viaja?
+              </Label>
+            </FormGroup>
+            <FormGroup inline>
+              <Input type="checkbox" />
+              <Label check className="title2">
+                Viajo por trabajo
+              </Label>
+            </FormGroup>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="date"
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                Llegada
+              </Label>
+            </FormGroup>
+            <FormGroup floating>
+              <Input
+                className="input"
+                id="name"
+                name="name"
+                placeholder="Name"
+                type="date"
+                onChange={(e) => setFilter(e.target.value)}
+              />
+              <Label for="exampleName" className="label">
+                Salida
+              </Label>
+            </FormGroup>
+            <p>Total de personas: {Total()}</p>
+            <div className="BigBox">
+              <div className="miniBox">
+                <p>Adultos: {adults}</p>
+                <Button onClick={incrementAdults} className="button4">
+                  <FaPlus />
+                </Button>
+                <Button onClick={decrementAdults} className="button4">
+                  <FaMinus />
+                </Button>
+              </div>
+              <div className="miniBox">
+                <p>Niños: {childs}</p>
+                <Button onClick={incrementChilds} className="button4">
+                  <FaPlus />
+                </Button>
+                <Button onClick={decrementChilds} className="button4">
+                  <FaMinus />
+                </Button>
+              </div>
+              <div className="miniBox">
+                <p>Bebés: {babys}</p>
+                <Button onClick={incrementBabys} className="button4">
+                  <FaPlus />
+                </Button>
+                <Button onClick={decrementBabys} className="button4">
+                  <FaMinus />
+                </Button>
+              </div>
+            </div>
+            <Link to={"/loggings"}>
+              <Button className="button1">Buscar &gt;</Button>
+            </Link>
+            <Link to={"/"}>
+              <Button className="button2">&lt; Cancelar</Button>
+            </Link>
+          </Form>
+          <Divider orientation="horizontal" />
+          <Cards />
         </div>
       )}
-      
     </div>
   );
 };

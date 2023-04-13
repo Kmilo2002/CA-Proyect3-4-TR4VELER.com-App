@@ -86,6 +86,9 @@ const Loggings = () => {
         </div>
       ) : role == 0 ?(
         <div>
+          <Link to={"/loggings_search"}>
+            <TbArrowBackUp className="goBack" />
+          </Link>
           {loggings.map((alojamiento) => {
             return (
               <Card
@@ -115,6 +118,9 @@ const Loggings = () => {
         </div>
       ) : 
       (<div>
+        <Link to={"/loggings_search"}>
+            <TbArrowBackUp className="goBack" />
+          </Link>
         {loggings.map((alojamiento) => {
             return (
               <Card
