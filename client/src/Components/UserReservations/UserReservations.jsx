@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { TbArrowBackUp } from "react-icons/tb"
 import { BsPersonCircle } from "react-icons/bs"
-import { Card, CardBody, } from "reactstrap"
+import { Button, Card, CardBody, Form, } from "reactstrap"
 import axios from "axios"
+import { Link, useParams } from 'react-router-dom'
 
 const UserReservations = () => {
+    const { reservationsId} = useParams()
 
     const [user, setUser] = useState([])
 
@@ -56,10 +58,17 @@ const UserReservations = () => {
   
   return (
     <div>
+      <Form>
         <TbArrowBackUp />
         <BsPersonCircle />
         <h4>{user.name}</h4>
-
+        <Card>
+          <CardBody>
+            <Link to = {`/reservation_modify/${reservationsId}`}><Button className='button1'>Gestionar</Button></Link>
+            <Link to = {`/reservation_cancel/${reservationsId}`}><Button className='button3'>Cancelar</Button></Link>
+          </CardBody>
+        </Card>
+      </Form>
     </div>
   )
 }

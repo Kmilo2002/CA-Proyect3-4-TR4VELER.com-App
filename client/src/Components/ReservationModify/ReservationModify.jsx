@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Form, Input, FormGroup, Label, Button } from "reactstrap";
+import { Divider } from "@chakra-ui/react";
+import { FaPlus, FaMinus } from "react-icons/fa";
+import axios from "axios"
 
 const ReservationModify = () => {
-  
+
+  const [adults, setAdults] = useState(0);
+  const [childs, setChilds] = useState(0);
+  const [babys, setBabys] = useState(0);
+
+  const incrementAdults = () => {
+    setAdults(adults + 1);
+  };
+
+  const incrementChilds = () => {
+    setChilds(childs + 1);
+  };
+
+  const incrementBabys = () => {
+    setBabys(babys + 1);
+  };
+
+  const decrementAdults = () => {
+    setAdults(adults - 1);
+  };
+
+  const decrementChilds = () => {
+    setChilds(childs - 1);
+  };
+
+  const decrementBabys = () => {
+    setBabys(babys - 1);
+  };
+
+  const Total = () => {
+    return [adults, childs, babys].reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+  }; 
+
   return (
     <div>
       <Form>
@@ -33,7 +73,7 @@ const ReservationModify = () => {
             Salida
           </Label>
         </FormGroup>
-      </Form>
+      
       <div className="BigBox">
         <p>Total de personas: {Total()}</p>
         <div className="miniBox">
@@ -87,6 +127,10 @@ const ReservationModify = () => {
           <option value="Royal Suite">Suite Real</option>
         </select>
       </div>
+      <Divider orientation="horizontal" />
+      <Button className="button1" type="submit">Guardar Cambios</Button> <br />
+      <Link to = {"/reservations"}><Button className="button2">Cancelar</Button></Link>
+      </Form>
     </div>
   );
 };

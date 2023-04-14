@@ -363,13 +363,21 @@ UserRouter.delete("/users/:reservationId", auth, async (req, res) => {
 UserRouter.delete("/user", auth, async (req, res) => {
   try {
     //const {id} = req.params;
-    await User.findByIdAndDelete(req.user.id)
+    const {password} = req.body
+
+    if(!password){
+      res.status(400).send({
+        success: false,
+        message: "Introduzca contraseña",
+      })
+    }
     if(!User){
       return res.status(404).send({
         success: false,
         message:"User not found!"
       })
     }
+    await User.findByIdAndDelete(req.user.id)
     return res.status(200).send({
       success: true,
       message: "User deleted correctly!"
@@ -407,28 +415,23 @@ UserRouter.delete("/user/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
     const {password} = req.body
-
     if(!password){
       return res.status(400).send({
         success: false,
         message: "Introduzca contraseña"
       })
     }
-    
     if(!id){
       return res.status(404).send({
         success: false,
         message: "Logging not found"
       })
     }
-
     await User.findByIdAndDelete(id)
     return res.status(200).send({
       success: true,
       message: "User deleted"
     })
-
-    
   } catch (error) {
     return res.status(500).send({
       success: false,
@@ -439,6 +442,13 @@ UserRouter.delete("/user/:id", auth, async (req, res) => {
 
 UserRouter.delete("/users", auth, authAdmin, async (req, res) => {
   try {
+    const {password} = req.body
+    if(!password){
+      res.status(400).send({
+        success: false,
+        message: "Introduzca contraseña"
+      })
+    }
     await User.findByIdAndDelete(req.user.id)    
     return res.status(200).send({
       success: true,

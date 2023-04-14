@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt")
 const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 const LoggingRouter = express.Router();

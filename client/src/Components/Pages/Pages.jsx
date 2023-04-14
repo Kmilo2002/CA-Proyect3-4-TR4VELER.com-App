@@ -16,6 +16,9 @@ import Logout from '../Logout/Logout'
 import Welcome from '../Welcome/Welcome'
 import ModifyLogging from '../ModifyLogging/ModifyLogging'
 import EraseLogging from '../EraseLogging/EraseLogging'
+import UserReservations from '../UserReservations/UserReservations'
+import ReservationModify from '../ReservationModify/ReservationModify'
+import ReservationCancel from '../ReservationCancel/ReservationCancel'
 
 
 const Pages = () => {
@@ -38,6 +41,9 @@ const Pages = () => {
             <Route path = '/logging_delete/:loggingId' element = {<EraseLogging />} />
             <Route path = '/payment' element = {<Payment />} />
             <Route path = '/logout' element = {<Logout />} />
+            <Route path = '/reservations' element = {<UserReservations />} />
+            <Route path = '/reservations_modify' element = {<ReservationModify />} />
+            <Route path = '/reservations_cancel' element = {<ReservationCancel />} />
         </Routes>
   )
 }
