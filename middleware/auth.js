@@ -14,7 +14,7 @@ const auth = (req, res, next) => {
       if (error) {
         req.status(404).json({
           success: false,
-          message: "Invalis Authentification!! (invalid token)",
+          message: "Invalid Authentification!! (invalid token)",
         });
       }
       req.user = user

@@ -12,7 +12,7 @@ let myUser;
 const salt = bcrypt.genSaltSync(10)
 
 const createToken = (user) => {
-  return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn:"1d"})
+  return jwt.sign(user, process.env.ACCESS_TOKEN, {expiresIn:"7d"})
 }
 
 UserRouter.post("/register/user", async (req, res) => {
@@ -415,16 +415,20 @@ UserRouter.delete("/user/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
     const {password} = req.body
-    if(!password){
-      return res.status(400).send({
+    
+    const user = await User.findById(req.user.id)
+    console.log(user)
+    if(!user){
+      return res.status(401).send({
         success: false,
-        message: "Introduzca contraseña"
+        message: "User not authorized"
       })
     }
-    if(!id){
-      return res.status(404).send({
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) {
+      return res.status(401).send({
         success: false,
-        message: "Logging not found"
+        message: "Wrong Password"
       })
     }
     await User.findByIdAndDelete(id)

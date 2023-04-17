@@ -16,8 +16,6 @@ const ModifyLogging = () => {
 
   const token = localStorage.getItem("token");
 
-  const id = localStorage.getItem("id")
-
   const [succesM, setSuccessM] = useState(null);
 
   const [errorM, setErrorM] = useState(null);
@@ -25,7 +23,7 @@ const ModifyLogging = () => {
   const getLoggings = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3500/api/logging/${id}`, 
+        `http://localhost:3500/api/logging/${loggingId}`, 
         {
         headers: {
           Authorization: token,
@@ -134,8 +132,8 @@ const ModifyLogging = () => {
             Precio
           </Label>
         </FormGroup>{" "}
-        <Button className="button1">Guardar Cambios</Button>
-        <Link to = {`/loggings/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
+        <Button className="button1" type="submit">Guardar Cambios</Button>
+        <Link to = {`/loggings/${loggingId}`}><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
     </div>
   );

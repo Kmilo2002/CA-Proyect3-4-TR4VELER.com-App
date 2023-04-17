@@ -15,8 +15,6 @@ const EraseLogging = () => {
 
   const token = localStorage.getItem("token")
 
-  const id = localStorage.getItem("id");
-
   const [succesM, setSuccessM] = useState(null);
 
   const [errorM, setErrorM] = useState(null);
@@ -31,15 +29,14 @@ const EraseLogging = () => {
     event.preventDefault();
     try {
         const response = await axios.delete(`http://localhost:3500/api/logging/${loggingId}`, 
-        {...password},
-        {
-            headers: {
+        { data: password,
+          headers: {
                 Authorization: token,
-            }
+            }, 
+        withCredentials: true,
         })
         console.log(response)
         setSuccessM(response.data.message)
-        localStorage.removeItem("id")
 
         setTimeout(() => {
             window.location.href = "/loggings"
@@ -89,7 +86,7 @@ const EraseLogging = () => {
         <Divider orientation="horizontal" />
         <Button className="button3" type="submit">Borrar alojamiento</Button>
         <br />
-        <Link to={`/loggings/${id}`}>
+        <Link to={`/loggings/${loggingId}`}>
           <Button className="button1">&lt; Cancelar</Button>
         </Link>
         <div

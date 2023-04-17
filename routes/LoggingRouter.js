@@ -4,6 +4,7 @@ const auth = require("../middleware/auth");
 const authAdmin = require("../middleware/authAdmin");
 const LoggingRouter = express.Router();
 const Logging = require("../models/Logging");
+const User = require("../models/User");
 
 let myLogging;
 
@@ -141,21 +142,23 @@ LoggingRouter.delete("/logging/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req. params;
     const {password} = req.body
-
-    if(!password){
-      return res.status(400).send({
-        success: false,
-        message: "Introduzca contraseña"
+    const user = await User.findById(req.user.id)
+    console.log(user)
+    if (!user) {
+      res.status(401).send({
+        succes: false,
+        message: "User not authorized"
       })
     }
-    if(!id){
-      return res.status(404).send({
+    const match = await bcrypt.compare(password, user.password)
+
+    if(!match){
+      return res.status(401).send({
         success: false,
-        message: "Logging not found"
+        message: "Wrong Password"
       })
     }
     await Logging.findByIdAndDelete(id)
-    
    return res.status(200).send({
     success: true,
     message: "Logging deleted correctly"
