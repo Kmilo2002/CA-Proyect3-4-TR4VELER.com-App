@@ -9,7 +9,7 @@ const User = require("../models/User");
 let myLogging;
 
 LoggingRouter.post("/register/logging",  async (req, res) => {
-  const { location, name, title, description, price, address } = req.body;
+  const { location, name, title, description, price, map } = req.body;
   try {
     let loggingFind = await Logging.findOne({ name });
     if (loggingFind) {
@@ -31,7 +31,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
       title,
       description,
       price,
-      address,
+      map,
     });
 
     await myLogging.save();

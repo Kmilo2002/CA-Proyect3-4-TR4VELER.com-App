@@ -33,7 +33,7 @@ const LoogingDetails = () => {
 
   return (
     <div>
-      <Link to={"/loggings"}>
+      <Link to={"/loggings_search"}>
         <TbArrowBackUp className="goBack" />
       </Link>
       <div>
@@ -80,7 +80,8 @@ const LoogingDetails = () => {
             <Link to = {`/loggings_modify/${loggingId}`}><Button className="button1">Modificar</Button></Link> <br/>
             <Link to = {`/logging_delete/${loggingId}`}><Button className="button3">Borrar</Button></Link>
           </div>
-        ) : role == 0 ? (
+        ) :
+         role == 0 ? (
           <div>
             <Link to={"/payment"}>
               <Button className="button1">Reservar ahora</Button>

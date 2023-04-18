@@ -9,7 +9,7 @@ import "./Loggings.css";
 const Loggings = () => {
   const [loggings, setLoggings] = useState([]);
 
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState("")
 
   const [errorM, setErrorM] = useState(null);
 

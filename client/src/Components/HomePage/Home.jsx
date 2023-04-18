@@ -29,7 +29,7 @@ const Home = () => {
         role == 1 ? 
         (<div>
           <Link to = {"/loggings"}><Button className="button1">Alojamientos</Button></Link> <br />
-          <Link><Button className="button1">Usuarios</Button></Link>
+          <Link to = {"/users"}><Button className="button1">Usuarios</Button></Link>
         </div>) : 
         role == 0 ?
         (<div>
