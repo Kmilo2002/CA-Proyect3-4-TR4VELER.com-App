@@ -36,6 +36,8 @@ const Login = () => {
       localStorage.setItem("role", response.data.userFind.role);
       localStorage.setItem("id", response.data.userFind._id)
       localStorage.setItem("token", response.data.accessToken)
+      localStorage.setItem("banned", response.data.userFind.banned)
+      localStorage.setItem("timestamp", response.data.userFind.createdAt)
 
       setTimeout(() => {
         window.location.href = "/"

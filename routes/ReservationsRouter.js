@@ -9,16 +9,16 @@ const authAdmin = require("../middleware/authAdmin");
 let myReservation;
 
 ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
-  const { days, persons, meals, loggingId } = req.body;
+  const { dayIn, dayOut, persons, meals, loggingId } = req.body;
   try {
-    let daysFind = await Reservations.findOne({ days });
+    let daysFind = await Reservations.findOne({ dayIn });
     if (daysFind) {
       return res.status(400).send({
         success: false,
         message: "¡Fechas no disponibles!",
       });
     }
-    if (!days || !persons || !meals || !loggingId ) {
+    if (!dayIn || !dayOut || !persons || !meals || !loggingId ) {
       return res.status(400).send({
         success: false,
         message: "No ha llenado todas las características de su estadía!"
@@ -26,7 +26,8 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
     }
 
     myReservation = new Reservations({
-      days,
+      dayIn,
+      dayOut,
       persons,
       meals,
       logging: loggingId,
@@ -158,7 +159,7 @@ ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
 ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { days, persons, meals } = req.body;
+    const { dayIn, dayOut, persons, meals } = req.body;
     let reservations = await Reservations.findByIdAndUpdate(id, {
       days,
       persons,

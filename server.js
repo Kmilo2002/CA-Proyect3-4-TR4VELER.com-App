@@ -9,11 +9,13 @@ require("dotenv").config();
 const UserRouter = require("./routes/UserRouter");
 const LoggingRouter = require("./routes/LoggingRouter");
 const ReservationsRouter = require("./routes/ReservationsRouter");
+const bodyParser = require("bodyParser");
 const cors = require("cors");
 
-app.use(express.json());
-app.use(express.urlencoded({}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cookieParser())
 
 app.use("/api", UserRouter);
 app.use("/api", LoggingRouter);

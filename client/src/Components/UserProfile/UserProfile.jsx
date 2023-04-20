@@ -58,7 +58,7 @@ const UserProfile = () => {
             <p>Gestiona tu perfil</p>
           </Link>
           <RiLuggageDepositFill className="icons" />
-          <Link to="/" className="text1">
+          <Link to="/reservations" className="text1">
             <p>Gestiona tus reservas</p>
           </Link>
           <IoSettingsOutline className="icons" />

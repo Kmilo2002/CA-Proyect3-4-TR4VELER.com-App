@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { TbArrowBackUp } from "react-icons/tb"
 import { BsPersonCircle } from "react-icons/bs"
-import { Button, Card, CardBody, Form, } from "reactstrap"
+import { Button, Card, CardBody, CardText, Form, } from "reactstrap"
 import axios from "axios"
 import { Link, useParams } from 'react-router-dom'
+import "./UserReservations.css"
 
 const UserReservations = () => {
     const { reservationsId} = useParams()
@@ -34,17 +35,18 @@ const UserReservations = () => {
 
     const getUserReservs = async () => {
         try {
-          const response = await axios.get("http://localhost:3500/api/user_rev/id", {...reservations},
+          const response = await axios.get("http://localhost:3500/api/user_reservations", 
+          {...reservations},
           {
             headers: {
                 Authorization: token,
             },
           }
         );
-          console.log(response.data)
-          setReservations(response.data)
+          console.log(response.data.user)
+          setReservations(response.data.user)
         } catch (error) {
-            
+        setErrorM(error.response.data.message)
         }
     }
 
@@ -59,13 +61,30 @@ const UserReservations = () => {
   return (
     <div>
       <Form>
-        <TbArrowBackUp />
-        <BsPersonCircle />
-        <h4>{user.name}</h4>
-        <Card>
+        <Link to = {"/profile"}><TbArrowBackUp className='goBack'/></Link>
+         <br />
+         <BsPersonCircle className='photo'/>
+        
+        <h1>
+          {user.name} {" "}
+          {user.surname}
+        </h1>
+        <h2>Gestión de Reservas</h2>
+        <Card
+        className="my-2"
+        color="dark"
+        inverse
+        style={{
+          width: "380px",
+          height: "200px",
+        }}
+      >
           <CardBody>
-            <Link to = {`/reservation_modify/${reservationsId}`}><Button className='button1'>Gestionar</Button></Link>
-            <Link to = {`/reservation_cancel/${reservationsId}`}><Button className='button3'>Cancelar</Button></Link>
+            <CardText>
+            Información de la Reserva
+            </CardText>
+            <Link to = {`/reservation_modify/${reservationsId}`}><Button className='button5'>Gestionar</Button></Link>
+            <Link to = {`/reservation_cancel/${reservationsId}`}><Button className='button6'>Cancelar</Button></Link>
           </CardBody>
         </Card>
       </Form>

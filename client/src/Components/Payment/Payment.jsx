@@ -17,8 +17,6 @@ const Payment = () => {
 
   const id = localStorage.getItem("id")
 
-  // const 
-
   const [errorM, setErrorM] = useState(null);
 
   const onChangeInput = (e) => {
@@ -106,7 +104,7 @@ const Payment = () => {
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
         <Button className="button1">Pagar &gt;</Button>
-        <Link to={`/loggings/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
+        <Link to={`/loggings_search/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
       <div
         className="alert alert-warning"
