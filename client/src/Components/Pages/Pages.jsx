@@ -22,6 +22,7 @@ import ReservationCancel from '../ReservationCancel/ReservationCancel'
 import CancelConfirm from '../CancelConfirm/CancelConfirm'
 import Users from '../Users/Users'
 import UsersDetails from '../UsersDetails/UsersDetails'
+import ReservationDetails from '../ReservationDetails/ReservationDetails'
 
 
 const Pages = () => {
@@ -46,6 +47,7 @@ const Pages = () => {
             <Route path = '/payment' element = {<Payment />} />
             <Route path = '/logout' element = {<Logout />} />
             <Route path = '/reservations' element = {<UserReservations />} />
+            <Route path = '/reservation_details/:loggingId' element = {<ReservationDetails />}  />
             <Route path = '/reservations_modify' element = {<ReservationModify />} />
             <Route path = '/reservations_cancel' element = {<ReservationCancel />} />
             <Route path = '/cancel_confirm' element = {<CancelConfirm />} />

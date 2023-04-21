@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
+import { useParams } from "react-router-dom"
 import { Card, CardBody, CardText } from 'reactstrap';
 import { RiEmotionHappyLine } from "react-icons/ri"
 import "./Welcome.css"
 
 const Welcome = () => {
+  
+  const idlogging = localStorage.getItem("idlogging")
+
     useEffect(() => {
-        setTimeout(() => {
-          window.location.href = "/"
-        }, 3000);
+      setTimeout(() => {
+        window.location.href = `/loggings_search/${idlogging}`
+      }, 2000);
     })
   return (
     <div>

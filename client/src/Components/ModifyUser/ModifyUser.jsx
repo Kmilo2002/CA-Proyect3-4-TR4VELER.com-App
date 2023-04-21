@@ -166,7 +166,7 @@ const ModifyUser = () => {
         </Card>
         <Divider orientation="horizontal" />
         <Button className="button1">Guardar cambios</Button> <br />
-      <Link to = '/erase_user'><Button className="button2">Borrar Cuenta</Button></Link>
+      <Link to = '/erase_user'><Button className="button3">Borrar Cuenta</Button></Link>
       </Form>
       <div
         className="alert alert-primary"

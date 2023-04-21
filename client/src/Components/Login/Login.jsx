@@ -3,15 +3,18 @@ import { useState } from "react";
 import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import axios from "axios";
 import { Divider } from "@chakra-ui/react";
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import "../Login/Login.css";
 import Cards from "../Cards/Cards";
 
 const Login = () => {
+  
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+  
+  const idlogging = localStorage.getItem("idlogging");
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -40,7 +43,7 @@ const Login = () => {
       localStorage.setItem("timestamp", response.data.userFind.createdAt)
 
       setTimeout(() => {
-        window.location.href = "/"
+        window.location.href = `/loggings_search/${idlogging}`
       }, 2000);
       
     } catch (error) {

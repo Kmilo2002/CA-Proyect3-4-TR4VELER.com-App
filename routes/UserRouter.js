@@ -237,7 +237,6 @@ UserRouter.get("/user_rev/:id", auth, authAdmin, async (req, res) => {
   }
 })
 
-
 UserRouter.get("/user", auth, async (req, res) => {
   try {
     let user = await User.findById(req.user.id)
@@ -364,23 +363,26 @@ UserRouter.delete("/user", auth, async (req, res) => {
   try {
     //const {id} = req.params;
     const {password} = req.body
-
-    if(!password){
-      res.status(400).send({
+    
+    const user = await User.findById(req.user.id)
+    console.log(user)
+    if(!user){
+      return res.status(401).send({
         success: false,
-        message: "Introduzca contraseña",
+        message: "User not authorized"
       })
     }
-    if(!User){
-      return res.status(404).send({
+    const match = await bcrypt.compare(password, user.password)
+    if (!match) {
+      return res.status(401).send({
         success: false,
-        message:"User not found!"
+        message: "Wrong Password"
       })
     }
     await User.findByIdAndDelete(req.user.id)
     return res.status(200).send({
       success: true,
-      message: "User deleted correctly!"
+      message: "User deleted"
     })
   } catch (error) {
     return res.status(500).send({
@@ -389,6 +391,7 @@ UserRouter.delete("/user", auth, async (req, res) => {
     });
   }
 })
+
 
 UserRouter.delete("/user/:id/:reservationId", auth, authAdmin, async (req, res) => {
   try {
@@ -411,7 +414,7 @@ UserRouter.delete("/user/:id/:reservationId", auth, authAdmin, async (req, res) 
   }
 })
 
-UserRouter.delete("/user/:id", auth, async (req, res) => {
+UserRouter.delete("/user/:id", auth, authAdmin, async (req, res) => {
   try {
     const {id} = req.params;
     const {password} = req.body

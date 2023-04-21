@@ -18,7 +18,7 @@ LoggingRouter.post("/register/logging",  async (req, res) => {
         message: "Ya existe en Alojamiento con ese nombre!",
       });
     }
-    if (!location || !name || !title || !description || !price || !!address) {
+    if (!location || !name || !title || !description || !price || !map) {
       return res.status(400).send({
         success: false,
         message: "¡No has rellendo todos los datos necesarios!",

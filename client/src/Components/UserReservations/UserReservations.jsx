@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom'
 import "./UserReservations.css"
 
 const UserReservations = () => {
-    const { reservationsId} = useParams()
+    const { reservationsId } = useParams()
 
     const [user, setUser] = useState([])
 
@@ -36,15 +36,14 @@ const UserReservations = () => {
     const getUserReservs = async () => {
         try {
           const response = await axios.get("http://localhost:3500/api/user_reservations", 
-          {...reservations},
           {
             headers: {
                 Authorization: token,
             },
           }
         );
-          console.log(response.data.user)
-          setReservations(response.data.user)
+          console.log(response.data.reservations.reservation)
+          setReservations(response.data.reservations.reservation)
         } catch (error) {
         setErrorM(error.response.data.message)
         }
@@ -81,8 +80,9 @@ const UserReservations = () => {
       >
           <CardBody>
             <CardText>
-            Información de la Reserva
+            {/* {reservations.map} */}
             </CardText>
+            Información de la reserva
             <Link to = {`/reservation_modify/${reservationsId}`}><Button className='button5'>Gestionar</Button></Link>
             <Link to = {`/reservation_cancel/${reservationsId}`}><Button className='button6'>Cancelar</Button></Link>
           </CardBody>

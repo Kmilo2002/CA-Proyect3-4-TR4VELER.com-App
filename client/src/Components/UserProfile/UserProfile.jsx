@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Card, CardBody, CardText } from "reactstrap"
 import { IoMdPerson } from "react-icons/io";
 import { IoStarOutline, IoSettingsOutline } from "react-icons/io5";
 import { RiLuggageDepositFill } from "react-icons/ri";
@@ -39,6 +40,11 @@ const UserProfile = () => {
     getUser();
   }, []);
 
+  const timestamp = localStorage.getItem("timestamp"); // ejemplo de marca de tiempo
+  const date = new Date(timestamp); // creas una instancia de Date con la marca de tiempo
+  const dateString = date.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
+  console.log(dateString); // imprime la fecha en formato "MM/DD/YYYY"
+
   return (
     <div>
       <h1>Perfil del Usuario</h1>
@@ -77,6 +83,22 @@ const UserProfile = () => {
           <h4>Colaboración:</h4>
           <BsHouseAdd className="icons" />
           <p>Solicitar unir un alojamiento tuyo</p>
+          <Card
+          className="my-2"
+          color="dark"
+          inverse
+          style={{
+            width: "380px",
+            height: "100px",
+          }}
+        >
+        <CardBody>
+          <CardText>
+            Esta cuenta fue creada: <br />
+            {dateString}
+          </CardText>
+        </CardBody>
+        </Card>
         </div>
       )}
     </div>

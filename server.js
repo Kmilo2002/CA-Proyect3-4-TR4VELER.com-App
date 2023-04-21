@@ -9,7 +9,8 @@ require("dotenv").config();
 const UserRouter = require("./routes/UserRouter");
 const LoggingRouter = require("./routes/LoggingRouter");
 const ReservationsRouter = require("./routes/ReservationsRouter");
-const bodyParser = require("bodyParser");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
 app.use(bodyParser.json());

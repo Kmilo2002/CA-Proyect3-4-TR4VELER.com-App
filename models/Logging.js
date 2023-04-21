@@ -22,7 +22,8 @@ const loggingSchema = new mongoose.Schema({
         required: true
     },
     map:{
-        type: String
+        type: String,
+        required: true
     },
     reservation:[{
         type: mongoose.Types.ObjectId,

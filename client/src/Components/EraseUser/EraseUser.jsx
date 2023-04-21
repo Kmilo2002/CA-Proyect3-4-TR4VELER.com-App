@@ -2,16 +2,16 @@ import React, { useState } from "react";
 import { Alert, Form, FormGroup, Input, Label, Button } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { FiAlertTriangle } from "react-icons/fi"
+import { FiAlertTriangle } from "react-icons/fi";
 import axios from "axios";
 import "./EraseUser.css";
 
 const EraseUser = () => {
-  const [user, setUser] = useState({});
+  const [password, setPassword] = useState({
+    password: "",
+  });
 
-  const token = localStorage.getItem("token")
-
-  const id = localStorage.getItem("id");
+  const token = localStorage.getItem("token");
 
   const [succesM, setSuccessM] = useState(null);
 
@@ -19,25 +19,26 @@ const EraseUser = () => {
 
   const onChangeInput = (e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-    console.log(user);
+    setPassword({ ...password, [name]: value });
+    console.log(password);
   };
 
   const eraseSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.delete(`http://localhost:3500/api/user/${id}`, 
-      {
+      const response = await axios.delete("http://localhost:3500/api/user", 
+      { data: password,
         headers: {
-          Authorization: token,
-        },
+              Authorization: token,
+          }, 
+      withCredentials: true,
       });
       console.log(response.data);
       setSuccessM(response.data.message);
-      localStorage.removeItem("token")
-      localStorage.removeItem("role")
-      localStorage.removeItem("id")
-      localStorage.removeItem("name")
+      localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("id");
+      localStorage.removeItem("name");
 
       setTimeout(() => {
         window.location.href = "/";
@@ -56,14 +57,15 @@ const EraseUser = () => {
       </Alert>
       <Divider orientation="horizontal" />
       <div className="card" style={{ width: "400px", height: "275px" }}>
-      <div className="card-body">
-        <h1>¡Acción Irreversible!</h1>
+        <div className="card-body">
+          <h1>¡Acción Irreversible!</h1>
           <FiAlertTriangle className="alert2"></FiAlertTriangle>
           <Divider orientation="horizontal" />
           <p className="card-text">
             Si borra su cuenta, perderá el acceso a nuestra aplicación, deberá
-            volver a registrarse y perderá todos los ajustes, así como los filtros 
-            que haya definido hasta el momento. ¿Está seguro de continuar?
+            volver a registrarse y perderá todos los ajustes, así como los
+            filtros que haya definido hasta el momento. ¿Está seguro de
+            continuar?
           </p>
         </div>
       </div>
@@ -75,7 +77,7 @@ const EraseUser = () => {
             className="input"
             id="Password"
             name="password"
-            value={user.password}
+            value={password.password}
             placeholder="Password"
             type="password"
             onChange={onChangeInput}
@@ -85,7 +87,7 @@ const EraseUser = () => {
           </Label>
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
-        <Button className="button2">Borrar Cuenta</Button>
+        <Button className="button3">Borrar Cuenta</Button>
         <br />
         <Link to={"/profile"}>
           <Button className="button1">&lt; Cancelar</Button>

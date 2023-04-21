@@ -21,7 +21,7 @@ const LoogingDetails = () => {
       );
       console.log(response.data);
       setLogging(response.data.logging);
-      localStorage.setItem("id", response.data.logging._id);
+      localStorage.setItem("idlogging", response.data.logging._id);
     } catch (error) {
       setErrorM(error.response.data.message);
     }
@@ -83,7 +83,7 @@ const LoogingDetails = () => {
         ) :
          role == 0 ? (
           <div>
-            <Link to={"/payment"}>
+            <Link to={`/reservation_details/${loggingId}`}>
               <Button className="button1">Reservar ahora</Button>
             </Link>
           </div>
@@ -91,7 +91,7 @@ const LoogingDetails = () => {
         (
           <div>
             <Link to={"/login"}>
-              <Button className="button1">Reservar ahora</Button>
+              <Button className="button1">¿Desea reservar?</Button>
             </Link>
           </div>
         )}

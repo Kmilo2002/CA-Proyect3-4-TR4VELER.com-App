@@ -30,6 +30,7 @@ const Payment = () => {
     try {
       const response = await axios.post(
         "http://localhost:3500/api/register/reservation",
+        {...confirmData},
         {
           headers: {
             Authorization: token,

@@ -12,7 +12,7 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
   const { dayIn, dayOut, persons, meals, loggingId } = req.body;
   try {
     let daysFind = await Reservations.findOne({ dayIn });
-    if (daysFind) {
+    if (daysFind === dayIn) {
       return res.status(400).send({
         success: false,
         message: "¡Fechas no disponibles!",
