@@ -9,6 +9,10 @@ import "./Loggings.css";
 const Loggings = () => {
   const [loggings, setLoggings] = useState([]);
 
+  const [filterLocation, setFilterLocation] = useState(" ");
+
+  const [searchResults, setSearchResults] = useState([])
+
   const [filter, setFilter] = useState("")
 
   const [errorM, setErrorM] = useState(null);
@@ -29,6 +33,22 @@ const Loggings = () => {
     getLoggings();
   }, []);
 
+  const handleClick = () => {
+    const filteredPlaces = loggings.filter(logging => {
+      // logging.location.toLowerCase().includes(filterLocation.toLowerCase()) || 
+      // logging.name.toLowerCase().includes(filterName.toLowerCase())
+      if(
+        logging.location.toLowerCase().includes(filterLocation.toLowerCase()) 
+        // || logging.name.toLowerCase().includes(filterName.toLowerCase())
+      ) 
+      {
+       return true  
+      }  
+  });
+   setSearchResults(filteredPlaces)
+    console.log(filteredPlaces) 
+  }
+
   return (
     <div>
       {role == 1 ? (
@@ -47,9 +67,10 @@ const Loggings = () => {
                 className="input"
                 id="name"
                 name="name"
+                value={filterLocation}
                 placeholder="Name"
                 type="text"
-                onChange = {e => setFilter(e.target.value)}
+                onChange = {e => setFilterLocation(e.target.value)}
               />
               <Label for="exampleName" className="label">
                 Buscar alojamiento
@@ -57,6 +78,36 @@ const Loggings = () => {
             </FormGroup>
           </Form>
           <Divider orientation="horizontal" className="divider1"/>
+          <Button className="button1" onClick={handleClick}>Buscar &gt;</Button>
+          <Divider orientation="horizontal" className="divider1"/>
+          <div>
+          {searchResults.map((alojamiento) => {
+            return (
+              <Card
+                className="my-2"
+                color="dark"
+                inverse
+                style={{
+                  width: "380px",
+                  height: "125px",
+                }}
+              >
+                <CardBody>
+                  <Link
+                    key={alojamiento._id}
+                    to={`/loggings_search/${alojamiento._id}`}
+                  >
+                    <div>
+                      <h3>{alojamiento.location}</h3>
+                      <h4>{alojamiento.name}</h4>
+                      <Divider orientation="horizontal" />
+                    </div>
+                  </Link>
+                </CardBody>
+              </Card>
+            );
+          })}
+          </div>
           {loggings.map((alojamiento) => {
             return (
               <Card
@@ -84,70 +135,8 @@ const Loggings = () => {
             );
           })}
         </div>
-      ) : role == 0 ?(
-        <div>
-          <Link to={"/loggings_search"}>
-            <TbArrowBackUp className="goBack" />
-          </Link>
-          {loggings.map((alojamiento) => {
-            return (
-              <Card
-                className="my-2"
-                color="dark"
-                inverse
-                style={{
-                  width: "380px",
-                  height: "125px",
-                }}
-              >
-                <CardBody>
-                  <Link
-                    key={alojamiento._id}
-                    to={`/loggings/${alojamiento._id}`}
-                  >
-                    <div>
-                      <h3>{alojamiento.location}</h3>
-                      <h4>{alojamiento.name}</h4>
-                      <Divider orientation="horizontal" />
-                    </div>
-                  </Link>
-                </CardBody>
-              </Card>
-            );
-          })}
-        </div>
-      ) : 
-      (<div>
-        <Link to={"/loggings_search"}>
-            <TbArrowBackUp className="goBack" />
-          </Link>
-        {loggings.map((alojamiento) => {
-            return (
-              <Card
-                className="my-2"
-                color="dark"
-                inverse
-                style={{
-                  width: "380px",
-                  height: "125px",
-                }}
-              >
-                <CardBody>
-                  <Link
-                    key={alojamiento._id}
-                    to={`/loggings/${alojamiento._id}`}
-                  >
-                    <div>
-                      <h3>{alojamiento.location}</h3>
-                      <h4>{alojamiento.name}</h4>
-                      <Divider orientation="horizontal" />
-                    </div>
-                  </Link>
-                </CardBody>
-              </Card>
-            );
-          })}
-      </div>)
+      ) : (
+        <></>)
       }
     </div>
   );

@@ -12,6 +12,7 @@ const LoggingsSearch = () => {
 
   // const [filterName, setFilterName] = useState(" ");
   const [filterLocation, setFilterLocation] = useState(" ");
+
   const [searchResults, setSearchResults] = useState([])
 
   const role = localStorage.getItem("role"); 
@@ -49,6 +50,7 @@ const LoggingsSearch = () => {
    setSearchResults(filteredPlaces)
     console.log(filteredPlaces) 
   }
+  
   return (
     <div>
       {role == 0 ? (

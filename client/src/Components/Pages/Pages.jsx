@@ -37,6 +37,7 @@ const Pages = () => {
             <Route path = '/modify_user' element = {<ModifyUser />} />
             <Route path = '/erase_user' element = {<EraseUser />} />
             <Route path = '/loggings' element = {<Loggings />} />
+            <Route path = '/loggings/:loggingId' element = {<LoggingDetails />} />
             <Route path = '/loggings_search' element = {<LoggingsSearch />} />
             <Route path = '/logging_register' element = {<LoggingRegister />} />
             <Route path = '/loggings_search/:loggingId' element = {<LoggingDetails />} />

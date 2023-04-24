@@ -42,9 +42,16 @@ const Login = () => {
       localStorage.setItem("banned", response.data.userFind.banned)
       localStorage.setItem("timestamp", response.data.userFind.createdAt)
 
-      setTimeout(() => {
-        window.location.href = `/loggings_search/${idlogging}`
-      }, 2000);
+        if(response.data.userFind.role === 1){
+          setTimeout(() => {
+            window.location.href = "/"
+          }, 2000);
+        }
+        if(response.data.userFind.role === 0){
+          setTimeout(() => {
+            window.location.href = `/loggings_search/${idlogging}`
+          }, 2000);
+        }
       
     } catch (error) {
       setErrorM(error.response.data.message);

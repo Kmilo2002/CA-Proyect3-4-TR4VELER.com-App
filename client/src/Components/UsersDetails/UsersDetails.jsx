@@ -137,16 +137,16 @@ console.log(dateString); // imprime la fecha en formato "MM/DD/YYYY"
         </Card>
           {
             users.banned == false ? (
-            <div><Link to={``}>
+            <div>
+            <Link to={``}>
             <Button className="button3" onClick={bannUser}>Banear Usuario</Button>
           </Link></div>) : (<div><Link to={``}>
             <Button className="button1" onClick={unbannUser}>Desbanear Usuario</Button>
           </Link>{" "}</div>)
           }
           </div>
-      ) : (
-        <></>
-      )}
+      ) : (<></>)
+      }
     </div>
   );
 };

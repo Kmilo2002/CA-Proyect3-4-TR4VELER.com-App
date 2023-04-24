@@ -33,9 +33,17 @@ const LoogingDetails = () => {
 
   return (
     <div>
-      <Link to={"/loggings_search"}>
+      {role == 1 ? 
+      (<div>
+        <Link to={"/loggings"}>
         <TbArrowBackUp className="goBack" />
       </Link>
+      </div>) : 
+      (<div>
+        <Link to={"/loggings_search"}>
+        <TbArrowBackUp className="goBack" />
+      </Link>
+      </div>)}
       <div>
         <Card
           className="my-2"

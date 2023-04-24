@@ -15,6 +15,7 @@ const Footer = () => {
             <p className="text">TR4VЄLЄR.com</p>
           </div>
         </nav>
+        <Link to = "/"><FiHome className="icons_foot"/></Link>
       </nav>
     );
   };
