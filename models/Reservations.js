@@ -2,11 +2,11 @@ const mongoose = require("mongoose")
 
 const reservationSchema = new mongoose.Schema({
     dayIn:{
-        type: String,
+        type: Date,
         required: true
     },
     dayOut:{
-        type:String,
+        type: Date,
         required: true
     },
     persons:{
@@ -15,6 +15,7 @@ const reservationSchema = new mongoose.Schema({
     },
     meals:{
         type: String,
+        enum: [ "B&B", "All-incluted", "Half-Pention", "Whole-Pention" ],
         required: true
     },
     user:{
@@ -24,7 +25,20 @@ const reservationSchema = new mongoose.Schema({
     logging:{
         type: mongoose.Types.ObjectId,
         ref: "Logging"
-    }
+    },
+    totalPrice: {
+        type: Number,
+        required: true,
+    },
+    paymentStatus: {
+        type: String,
+        enum: [ "paid", "pending", "canceled"],
+        default: "pending"
+    },
+    paypalTransactionId: {
+        type: String,
+        required: false
+    },
 },{
     timestamps: true
 })

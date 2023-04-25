@@ -201,12 +201,12 @@ const ReservationDetails = () => {
         )}
         <Divider orientation="horizontal" />
         <Link to={"/payment"}>
-          <Button className="button1">
+          <Button className="button1" type="submit">
             Pagar
           </Button>
         </Link>{" "}
         <br />
-        <Link to={`/loggings_details/${loggingId}`}>
+        <Link to={`/loggings_search/${loggingId}`}>
           <Button className="button2">Volver</Button>
         </Link>
       </Form>

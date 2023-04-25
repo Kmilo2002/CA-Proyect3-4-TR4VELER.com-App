@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom"
 
 const Payment = () => {
+
   const [confirmData, setconfirmData] = useState({
     name: "",
     surname: "",
@@ -15,7 +16,7 @@ const Payment = () => {
 
   const token = localStorage.getItem("token");
 
-  const id = localStorage.getItem("id")
+  const idlogging = localStorage.getItem("idlogging")
 
   const [errorM, setErrorM] = useState(null);
 
@@ -105,7 +106,7 @@ const Payment = () => {
         </FormGroup>{" "}
         <Divider orientation="horizontal" />
         <Button className="button1">Pagar &gt;</Button>
-        <Link to={`/loggings_search/${id}`}><Button className="button2">&lt; Cancelar</Button></Link>
+        <Link to={`/loggings_search/${idlogging}`}><Button className="button2">&lt; Cancelar</Button></Link>
       </Form>
       <div
         className="alert alert-warning"

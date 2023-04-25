@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { useParams } from "react-router-dom"
 import { Card, CardBody, CardText } from 'reactstrap';
 import { RiEmotionHappyLine } from "react-icons/ri"
 import "./Welcome.css"
@@ -9,10 +8,15 @@ const Welcome = () => {
   const idlogging = localStorage.getItem("idlogging")
 
     useEffect(() => {
+      if (!idlogging) {
       setTimeout(() => {
-        window.location.href = `/loggings_search/${idlogging}`
-      }, 2000);
-    })
+          window.location.href = "/"
+      }, 2000)
+  } else {
+    setTimeout(() => {
+    window.location.href = `/loggings_search/${idlogging}`
+  }, 2000)}})
+
   return (
     <div>
         <RiEmotionHappyLine className='hFace' />

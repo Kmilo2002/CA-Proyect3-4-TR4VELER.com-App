@@ -9,16 +9,18 @@ const authAdmin = require("../middleware/authAdmin");
 let myReservation;
 
 ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
-  const { dayIn, dayOut, persons, meals, loggingId } = req.body;
+  const { dayIn, dayOut, persons, meals, logging } = req.body;
+  const userFind = await User.findById(req.user.id)
   try {
-    let daysFind = await Reservations.findOne({ dayIn });
-    if (daysFind === dayIn) {
+    let findReservation = await Reservations.find({ dayIn });
+    if (findReservation.length > 0) {
       return res.status(400).send({
         success: false,
         message: "¡Fechas no disponibles!",
       });
     }
-    if (!dayIn || !dayOut || !persons || !meals || !loggingId ) {
+
+    if (!dayIn || !dayOut || !persons || !meals || !logging ) {
       return res.status(400).send({
         success: false,
         message: "No ha llenado todas las características de su estadía!"
@@ -30,9 +32,18 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
       dayOut,
       persons,
       meals,
-      logging: loggingId,
-      user: req.user.id
+      logging,
+      user: userFind
     });
+
+    const loggingObj = await Logging.findById(logging); // Obtenemos el objeto de alojamiento correspondiente a la reserva
+    const oneDay = 24 * 60 * 60 * 1000; // Horas * minutos * segundos * milisegundos
+    const diffInDays = Math.round(Math.abs((new Date(dayOut) - new Date(dayIn)) / oneDay)); // Calculamos la diferencia en días entre las fechas de entrada y salida
+    const totalPrice = diffInDays * loggingObj.price; // Multiplicamos la cantidad de días por el precio diario del alojamiento para obtener el precio total
+  
+    myReservation.totalPrice = totalPrice; // Asignamos el precio total a la propiedad totalPrice de la reserva
+
+    await myReservation.save();
 
     await User.findByIdAndUpdate(req.user.id, {
       $push: {
@@ -40,19 +51,18 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
       },
     });
 
-    await Logging.findByIdAndUpdate(loggingId, {
+    await Logging.findByIdAndUpdate(logging, {
       $push: {
         reservation: myReservation._id,
       },
     });
-
-    await myReservation.save();
 
     return res.status(201).send({
       success: true,
       message: "¡Reservación creada correctamente!",
       myReservation,
     });
+
   } catch (error) {
     return res.status(500).send({
       success: false,
