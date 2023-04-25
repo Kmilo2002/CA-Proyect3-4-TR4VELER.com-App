@@ -54,6 +54,21 @@ const UserReservations = () => {
     getUserReservs();
   }, []);
 
+  let dateString2;
+  let dateString3;
+  for (let i = 0; i < reservations.length; i++) {
+  const dayIn2 = reservations[i].dayIn; // ejemplo de marca de tiempo
+  const date2 = new Date(dayIn2); // creas una instancia de Date con la marca de tiempo
+  dateString2 = date2.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
+  console.log(dateString2); // imprime la fecha en formato "MM/DD/YYYY"
+
+  const dayOut2 = reservations[i].dayOut; // ejemplo de marca de tiempo
+  const date3 = new Date(dayOut2); // creas una instancia de Date con la marca de tiempo
+  dateString3 = date3.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
+  console.log(dateString3); // imprime la fecha en formato "MM/DD/YYYY"
+    }
+  
+
   return (
     <div>
       <Form>
@@ -75,15 +90,16 @@ const UserReservations = () => {
               inverse
               style={{
                 width: "380px",
-                height: "200px",
+                height: "215px",
               }}
             >
               <CardBody>
-                <Link key={reservas._id} to={`/reservations/${reservationsId}`}>
-                  <div>
+                  <div key={reservas._id} to={`/reservations/${reservationsId}`}>
                     <h3>
-                      {reservas.name} <br />
-                      {reservas.description}
+                      Día entrada:{" "}{dateString2} <br />
+                      Día salida:{" "}{dateString3} <br />
+                      Cantidad de Personas:{" "}{reservas.persons} <br />
+                      Precio:{" "}{reservas.totalPrice}
                     </h3>
                   </div>
                   <Link to={`/reservation_modify/${reservationsId}`}>
@@ -92,7 +108,6 @@ const UserReservations = () => {
                   <Link to={`/reservation_cancel/${reservationsId}`}>
                     <Button className="button6">Cancelar</Button>
                   </Link>
-                </Link>
                 <Divider orientation="horizontal" />
               </CardBody>
             </Card>

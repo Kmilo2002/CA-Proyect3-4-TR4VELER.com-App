@@ -52,6 +52,15 @@ const Login = () => {
             window.location.href = `/loggings_search/${idlogging}`
           }, 2000);
         }
+
+        if(!idlogging) {
+          setTimeout(() => {
+              window.location.href = "/"
+          }, 2000)
+      } else {
+        setTimeout(() => {
+        window.location.href = `/loggings_search/${idlogging}`
+      }, 2000)}
       
     } catch (error) {
       setErrorM(error.response.data.message);

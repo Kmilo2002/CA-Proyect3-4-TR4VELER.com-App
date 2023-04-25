@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { TbArrowBackUp } from "react-icons/tb";
 import { Card, CardBody, CardText, Button } from "reactstrap";
+import { Divider } from "@chakra-ui/react";
 
 const UsersDetails = () => {
   const { usersId } = useParams();
@@ -140,9 +141,13 @@ console.log(dateString); // imprime la fecha en formato "MM/DD/YYYY"
             <div>
             <Link to={``}>
             <Button className="button3" onClick={bannUser}>Banear Usuario</Button>
-          </Link></div>) : (<div><Link to={``}>
+          </Link>
+          <Divider orientation="horizontal" />
+          </div>) : (<div><Link to={``}>
             <Button className="button1" onClick={unbannUser}>Desbanear Usuario</Button>
-          </Link>{" "}</div>)
+          </Link>
+          <Divider orientation="horizontal" />
+          </div>)
           }
           </div>
       ) : (<></>)
