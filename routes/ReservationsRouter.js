@@ -126,7 +126,7 @@ ReservationsRouter.get(
 ReservationsRouter.get("/reservation/:id", auth, async (req, res) => {
   try {
     const {id} = req.params;
-    let reservation = await Reservations.findById(id).populate({path:"logging", select: "name title price"})
+    let reservation = await Reservations.findById(id)
     if(!reservation){
       return res.status(404).send({
         success: false,
@@ -171,7 +171,8 @@ ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
     const { id } = req.params;
     const { dayIn, dayOut, persons, meals } = req.body;
     let reservations = await Reservations.findByIdAndUpdate(id, {
-      days,
+      dayIn,
+      dayOut,
       persons,
       meals,
     });

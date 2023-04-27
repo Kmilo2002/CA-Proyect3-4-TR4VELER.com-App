@@ -15,7 +15,7 @@ const reservationSchema = new mongoose.Schema({
     },
     meals:{
         type: String,
-        enum: [ "B&B", "All-incluted", "Half-Pention", "Whole-Pention" ],
+        enum: [ "B&B", "All-Incluted", "Half-Pention", "Full-Pention" ],
         required: true
     },
     user:{

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Form, Input, FormGroup, Label, Button } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import axios from "axios";
 
 const ReservationDetails = () => {
-  const { loggingId } = useParams();
+  const idlogging = localStorage.getItem("idlogging")
 
   const [reservation, setReservation] = useState({
     dayIn: "",
     dayOut: "",
     persons: "",
     meals: "",
+    logging: idlogging,
   });
+
 
   const [logging, setLogging] = useState([]);
 
@@ -24,7 +26,7 @@ const ReservationDetails = () => {
   const getLogging = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3500/api/logging/${loggingId}`
+        `http://localhost:3500/api/logging/${idlogging}`
       );
       console.log(response.data);
       setLogging(response.data);
@@ -56,13 +58,19 @@ const ReservationDetails = () => {
         }
       );
 
-      console.log(response.data);
+      console.log(response);
       setReservation(response.data);
 
+      setTimeout(() => {
+        window.location.href = "/payment_confirm"
+      }, 3000);
+
     } catch (error) {
+      console.log(error.response)
       setErrorM(error.response.data.message);
     }
   };
+
 
   const [adults, setAdults] = useState(0);
   const [childs, setChilds] = useState(0);
@@ -168,6 +176,8 @@ const ReservationDetails = () => {
             required
             option="Tipo de Alimentación"
             className="form-control"
+            name="meals"
+            value={reservation.meals}
             onChange={onChangeInput}
           >
             <option value="">Tipo de Alimentación</option>
@@ -200,13 +210,11 @@ const ReservationDetails = () => {
           <></>
         )}
         <Divider orientation="horizontal" />
-        <Link to={"/payment"}>
           <Button className="button1" type="submit">
             Pagar
           </Button>
-        </Link>{" "}
         <br />
-        <Link to={`/loggings_search/${loggingId}`}>
+        <Link to={`/loggings_search/${idlogging}`}>
           <Button className="button2">Volver</Button>
         </Link>
       </Form>

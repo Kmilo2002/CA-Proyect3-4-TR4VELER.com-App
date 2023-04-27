@@ -2,18 +2,25 @@ import React from 'react'
 import { Card, CardBody, CardText } from 'reactstrap';
 import { RiCalendarCheckLine} from "react-icons/ri"
 import { Link } from 'react-router-dom';
+import { Divider } from '@chakra-ui/react';
 
 
 const PaymentConfirm = () => {
-    setTimeout(() => {
-        window.location.href = "/reservations"
-    }, 10000);
 
   return (
     <div>
-        <Card>
+        <Divider orientation='horizontal' />
+        <Card
+        className="my-2"
+        color="dark"
+        inverse
+        style={{
+          width: "380px",
+          height: "290px",
+        }}
+        >
             <CardBody>
-                <RiCalendarCheckLine />
+                <RiCalendarCheckLine className='photo'/>
                 <CardText>
                 <h2>Reservación Confirmada</h2>
                 Su reservación ya está siendo procesada por nuestro equipo
@@ -23,6 +30,7 @@ const PaymentConfirm = () => {
                 <Link to = {"/profile"}><p>Mi Perfil</p></Link>
             </CardBody>
         </Card>
+        <Divider orientation='horizontal' />
     </div>
   )
 }

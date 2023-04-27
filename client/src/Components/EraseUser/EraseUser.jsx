@@ -50,6 +50,7 @@ const EraseUser = () => {
 
   return (
     <div>
+      <Divider orientation="horizontal" />
       <Alert color="danger" className="color-red" style={{ display: "block" }}>
         <span className="fw-bold text-black">
           ¿Está seguro de querer borrar su cuenta?

@@ -1,7 +1,11 @@
-.text {
+.text, .text2 {
     color: white;
     font-size: 18px;
     font-weight: bold;
+}
+
+.text2 {
+    font-size: 15px;
 }
 
 .icons_foot {

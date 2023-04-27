@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { TbArrowBackUp } from "react-icons/tb";
 import { BsPersonCircle } from "react-icons/bs";
-import { Button, Card, CardBody, CardText, Form } from "reactstrap";
+import { Button, Card, CardBody, Form } from "reactstrap";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./UserReservations.css";
 import { Divider } from "@chakra-ui/react";
 
 const UserReservations = () => {
-  const { reservationsId } = useParams();
-
   const [user, setUser] = useState([]);
 
   const [reservations, setReservations] = useState([]);
@@ -42,31 +40,33 @@ const UserReservations = () => {
           },
         }
       );
-      console.log(response.data.reservations.reservation);
+      // console.log(response.data.reservations.reservation);
       setReservations(response.data.reservations.reservation);
     } catch (error) {
       setErrorM(error.response.data.message);
     }
   };
 
+  console.log(reservations)
+
   useEffect(() => {
     getUser();
     getUserReservs();
   }, []);
 
-  let dateString2;
-  let dateString3;
-  for (let i = 0; i < reservations.length; i++) {
-  const dayIn2 = reservations[i].dayIn; // ejemplo de marca de tiempo
-  const date2 = new Date(dayIn2); // creas una instancia de Date con la marca de tiempo
-  dateString2 = date2.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
-  console.log(dateString2); // imprime la fecha en formato "MM/DD/YYYY"
+  // let dateString2;
+  // let dateString3;
+  // for (let i = 0; i < reservations.length; i++) {
+  // const dayIn2 = reservations[i].dayIn; // ejemplo de marca de tiempo
+  // const date2 = new Date(dayIn2); // creas una instancia de Date con la marca de tiempo
+  // dateString2 = date2.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
+  // console.log(dateString2); // imprime la fecha en formato "MM/DD/YYYY"
 
-  const dayOut2 = reservations[i].dayOut; // ejemplo de marca de tiempo
-  const date3 = new Date(dayOut2); // creas una instancia de Date con la marca de tiempo
-  dateString3 = date3.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
-  console.log(dateString3); // imprime la fecha en formato "MM/DD/YYYY"
-    }
+  // const dayOut2 = reservations[i].dayOut; // ejemplo de marca de tiempo
+  // const date3 = new Date(dayOut2); // creas una instancia de Date con la marca de tiempo
+  // dateString3 = date3.toLocaleDateString(); // conviertes la fecha en una cadena en formato local
+  // console.log(dateString3); // imprime la fecha en formato "MM/DD/YYYY"
+  // }
   
 
   return (
@@ -90,22 +90,21 @@ const UserReservations = () => {
               inverse
               style={{
                 width: "380px",
-                height: "215px",
+                height: "180px",
               }}
             >
               <CardBody>
-                  <div key={reservas._id} to={`/reservations/${reservationsId}`}>
+                  <div key={reservas._id} to={`/reservations/${reservas._id}`}>
                     <h3>
-                      Día entrada:{" "}{dateString2} <br />
-                      Día salida:{" "}{dateString3} <br />
+                      Día entrada:{" "}{new Date(reservas.dayIn).toLocaleDateString()} <br />
+                      Día salida:{" "}{new Date(reservas.dayOut).toLocaleDateString()} <br />
                       Cantidad de Personas:{" "}{reservas.persons} <br />
-                      Precio:{" "}{reservas.totalPrice}
                     </h3>
                   </div>
-                  <Link to={`/reservation_modify/${reservationsId}`}>
+                  <Link to={`/reservations_modify/${reservas._id}`}>
                     <Button className="button5">Gestionar</Button>
                   </Link>
-                  <Link to={`/reservation_cancel/${reservationsId}`}>
+                  <Link to={`/reservations_cancel/${reservas._id}`}>
                     <Button className="button6">Cancelar</Button>
                   </Link>
                 <Divider orientation="horizontal" />

@@ -49,8 +49,8 @@ const Pages = () => {
             <Route path = '/logout' element = {<Logout />} />
             <Route path = '/reservations' element = {<UserReservations />} />
             <Route path = '/reservation_details/:loggingId' element = {<ReservationDetails />}  />
-            <Route path = '/reservations_modify' element = {<ReservationModify />} />
-            <Route path = '/reservations_cancel' element = {<ReservationCancel />} />
+            <Route path = '/reservations_modify/:reservationId' element = {<ReservationModify />} />
+            <Route path = '/reservations_cancel/:reservationId' element = {<ReservationCancel />} />
             <Route path = '/cancel_confirm' element = {<CancelConfirm />} />
             <Route path = '/users' element = {<Users />} />
             <Route path = '/users/:usersId' element = {<UsersDetails />} /> 
