@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Form, Input, FormGroup, Label, Button } from "reactstrap";
+import { Form, Input, FormGroup, Label, Button, Card, CardBody, CardText } from "reactstrap";
 import { Divider } from "@chakra-ui/react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import axios from "axios";
@@ -58,12 +58,12 @@ const ReservationDetails = () => {
         }
       );
 
-      console.log(response);
+      console.log(response.data);
       setReservation(response.data);
 
       setTimeout(() => {
         window.location.href = "/payment_confirm"
-      }, 3000);
+      }, 10000);
 
     } catch (error) {
       console.log(error.response)
@@ -141,6 +141,9 @@ const ReservationDetails = () => {
             Fecha de Salida
           </Label>
         </FormGroup>
+        {/* <div>
+          Precio Total: 
+        </div> */}
         <div className="BigBox">
           <p>Total de personas: {Total()}</p>
           <div className="miniBox">
@@ -209,6 +212,27 @@ const ReservationDetails = () => {
         ) : (
           <></>
         )}
+        {/* <Divider orientation="horizontal" />
+        <Card
+        className="my-2"
+        color="dark"
+        inverse
+        style={{
+          width: "380px",
+          height: "150px",
+        }}
+        >
+          <CardBody>
+            <CardText>
+              <h3>
+                Día entrada:{" "}{new Date(reservation.myReservation.dayIn).toLocaleDateString()} <br />
+                Día entrada:{" "}{new Date(reservation.myReservation.dayOut).toLocaleDateString()} <br />
+                Total de Personas:{" "}{reservation.myReservation.persons} <br />
+                Precio Total: {reservation.myReservation.totalPrice} €
+              </h3>
+            </CardText>
+          </CardBody>
+        </Card> */}
         <Divider orientation="horizontal" />
           <Button className="button1" type="submit">
             Pagar
@@ -217,9 +241,8 @@ const ReservationDetails = () => {
         <Link to={`/loggings_search/${idlogging}`}>
           <Button className="button2">Volver</Button>
         </Link>
-        
+       <Divider orientation="horizontal" />
       </Form>
-      
     </div>
   );
 };

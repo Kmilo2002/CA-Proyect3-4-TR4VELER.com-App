@@ -64,10 +64,7 @@ const Login = () => {
       
     } catch (error) {
       setErrorM(error.response.data.message);
-
-      setTimeout(() => {
-        window.location.href = "/login"
-      }, 1500);
+      
     }
   };
 
@@ -124,8 +121,9 @@ const Login = () => {
         {succesM}
       </div>
       <div
-        className="alert alert-warning"
+        className="alert alert-danger"
         role="alert"
+        color="red"
         style={{ display: errorM ? "block" : "none" }}
       >
         {errorM}
