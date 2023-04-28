@@ -217,7 +217,9 @@ const ReservationDetails = () => {
         <Link to={`/loggings_search/${idlogging}`}>
           <Button className="button2">Volver</Button>
         </Link>
+        
       </Form>
+      
     </div>
   );
 };

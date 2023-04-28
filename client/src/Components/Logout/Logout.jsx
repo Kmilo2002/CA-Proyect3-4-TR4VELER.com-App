@@ -6,6 +6,7 @@ const Logout = () => {
     localStorage.removeItem("role")
     localStorage.removeItem("id")
     localStorage.removeItem("name")
+    localStorage.removeItem("idlogging")
 
     useEffect(() => {
      setTimeout(() => {

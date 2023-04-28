@@ -82,7 +82,7 @@ const LoogingDetails = () => {
         <h1>Lugar: {logging.location}</h1>
         <h2>Nombre: {logging.name}</h2>
         <h3>Descripción: {logging.description}</h3>
-        <h4>Precio: {logging.price} por noche</h4>
+        <h4>Precio: {logging.price} euros por noche</h4>
         {role == 1 ? (
           <div>
             <Link to = {`/loggings_modify/${loggingId}`}><Button className="button1">Modificar</Button></Link> <br/>

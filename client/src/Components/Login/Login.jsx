@@ -42,18 +42,18 @@ const Login = () => {
       localStorage.setItem("banned", response.data.userFind.banned)
       localStorage.setItem("timestamp", response.data.userFind.createdAt)
 
-        if(response.data.userFind.role === 1){
+      if(response.data.userFind.role === 1){
           setTimeout(() => {
             window.location.href = "/"
           }, 2000);
         }
-        if(response.data.userFind.role === 0){
+      if(response.data.userFind.role === 0){
           setTimeout(() => {
             window.location.href = `/loggings_search/${idlogging}`
           }, 2000);
-        }
+      }
 
-        if(!idlogging) {
+      if(!idlogging) {
           setTimeout(() => {
               window.location.href = "/"
           }, 2000)
@@ -129,7 +129,7 @@ const Login = () => {
         style={{ display: errorM ? "block" : "none" }}
       >
         {errorM}
-      </div>
+      </div>      
       <Cards />
     </div>
   );

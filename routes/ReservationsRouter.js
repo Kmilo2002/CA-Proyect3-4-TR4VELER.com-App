@@ -101,8 +101,7 @@ ReservationsRouter.get(
       const { id } = req.params;
       //let reservation = await Reservations.findById(id).select("User").populate("user")
       let reservation = await Reservations.findById(id)
-        .select("User Logging")
-        .populate({ path: "user", select: "name surname email phone" })
+        .select("dayIn dayOut Logging")
         .populate({ path: "logging", select: "name title" });
       if (!reservation) {
         return res.status(404).send({
