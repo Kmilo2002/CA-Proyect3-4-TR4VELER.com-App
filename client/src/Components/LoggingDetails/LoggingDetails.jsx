@@ -83,6 +83,7 @@ const LoogingDetails = () => {
         <h2>Nombre: {logging.name}</h2>
         <h3>Descripción: {logging.description}</h3>
         <h4>Precio: {logging.price} euros por noche</h4>
+        <h5>Impuesto: 10% IVA</h5>
         {role == 1 ? (
           <div>
             <Link to = {`/loggings_modify/${loggingId}`}><Button className="button1">Modificar</Button></Link> <br/>

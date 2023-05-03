@@ -13,7 +13,7 @@ const Footer = () => {
         <nav className="navbar-bottom bg-body-tertiary">
           <div className="container-fluid">
             <p className="text">TR4VЄLЄR.com</p>
-            <p className="text1">Todos los derechos reservados®</p>
+            <p className="text2">Todos los derechos reservados®</p>
           </div>
         </nav>
         <Link to = "/"><FiHome className="icons_foot"/></Link>

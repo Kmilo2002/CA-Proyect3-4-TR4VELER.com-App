@@ -19,6 +19,8 @@ const ReservationDetails = () => {
 
   const [logging, setLogging] = useState([]);
 
+  const [succesM, setSuccessM] = useState(null)
+
   const [errorM, setErrorM] = useState(null);
 
   const token = localStorage.getItem("token");
@@ -108,6 +110,10 @@ const ReservationDetails = () => {
   };
 
   reservation.persons = Total();
+
+  // const reservationCard = () => {
+    
+  // }
 
   return (
     <div>
@@ -212,8 +218,8 @@ const ReservationDetails = () => {
         ) : (
           <></>
         )}
-        {/* <Divider orientation="horizontal" />
-        <Card
+        <Divider orientation="horizontal" />
+        {/* <Card
         className="my-2"
         color="dark"
         inverse
@@ -232,7 +238,7 @@ const ReservationDetails = () => {
               </h3>
             </CardText>
           </CardBody>
-        </Card> */}
+        </Card>  */}
         <Divider orientation="horizontal" />
           <Button className="button1" type="submit">
             Pagar
@@ -243,6 +249,21 @@ const ReservationDetails = () => {
         </Link>
        <Divider orientation="horizontal" />
       </Form>
+      <div
+        className="alert alert-primary"
+        role="alert"
+        style= {{ display: succesM ? "block" : "none" }}
+      >
+        {succesM}
+      </div>
+      <div
+        className="alert alert-danger"
+        role="alert"
+        color="red"
+        style={{ display: errorM ? "block" : "none" }}
+      >
+        {errorM}
+      </div>     
     </div>
   );
 };

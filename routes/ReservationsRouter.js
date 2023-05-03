@@ -20,6 +20,15 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
       });
     }
 
+    let fecha = new Date();
+    let fechaPast = new Date(dayIn)
+    if(fechaPast.getTime() < fecha.getTime()){
+      return res.status(403).send({
+        success: false,
+        message: "No se permiten hacer reservas en pasado"
+      })
+    }
+
     if (!dayIn || !dayOut || !persons || !meals || !logging ) {
       return res.status(400).send({
         success: false,
@@ -39,8 +48,9 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
     const loggingObj = await Logging.findById(logging); // Obtenemos el objeto de alojamiento correspondiente a la reserva
     const oneDay = 24 * 60 * 60 * 1000; // Horas * minutos * segundos * milisegundos
     const diffInDays = Math.round(Math.abs((new Date(dayOut) - new Date(dayIn)) / oneDay)); // Calculamos la diferencia en días entre las fechas de entrada y salida
-    const totalPrice = diffInDays * loggingObj.price; // Multiplicamos la cantidad de días por el precio diario del alojamiento para obtener el precio total
-  
+    const Price = diffInDays * loggingObj.price; // Multiplicamos la cantidad de días por el precio diario del alojamiento para obtener el precio total
+    const totalPrice = Price * 1.1; //Incluimos el IVA, que en hostelería es del 10%
+
     myReservation.totalPrice = totalPrice; // Asignamos el precio total a la propiedad totalPrice de la reserva
 
     await myReservation.save();
@@ -168,19 +178,30 @@ ReservationsRouter.get("/user_reservations", auth, async (req, res) => {
 ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { dayIn, dayOut, persons, meals } = req.body;
+    const { dayIn, dayOut, persons, meals, logging } = req.body;
     let reservations = await Reservations.findByIdAndUpdate(id, {
       dayIn,
       dayOut,
       persons,
       meals,
+      logging,
     });
+
     if (!id) {
       return res.status(404).send({
         success: false,
         message: "There is no reservation with that id",
       });
     }
+
+    const loggingObj = await Logging.findById(logging); // Obtenemos el objeto de alojamiento correspondiente a la reserva
+    const oneDay = 24 * 60 * 60 * 1000; // Horas * minutos * segundos * milisegundos
+    const diffInDays = Math.round(Math.abs((new Date(dayOut) - new Date(dayIn)) / oneDay)); // Calculamos la diferencia en días entre las fechas de entrada y salida
+    const Price = diffInDays * loggingObj.price; // Multiplicamos la cantidad de días por el precio diario del alojamiento para obtener el precio total
+    const totalPrice = Price * 1.1; //Incluimos el IVA del 10%
+
+    myReservation.totalPrice = totalPrice; // Asignamos el precio total a la propiedad totalPrice de la reserva
+
     return res.status(200).send({
       success: true,
       message: "Reservation Updated",
