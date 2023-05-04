@@ -201,7 +201,9 @@ ReservationsRouter.put("/reservations_modify/:id", auth, async (req, res) => {
     const totalPrice = Price * 1.1; //Incluimos el IVA del 10%
 
     myReservation.totalPrice = totalPrice; // Asignamos el precio total a la propiedad totalPrice de la reserva
-
+    
+    await myReservation.save();
+    
     return res.status(200).send({
       success: true,
       message: "Reservation Updated",

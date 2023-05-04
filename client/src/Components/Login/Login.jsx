@@ -52,7 +52,9 @@ const Login = () => {
             window.location.href = `/loggings_search/${idlogging}`
           }, 2000);
       }
-
+      // if (Input.value.length > 2) {
+      //   quitAlert();
+      // }
       if(!idlogging) {
           setTimeout(() => {
               window.location.href = "/"
@@ -67,6 +69,10 @@ const Login = () => {
       
     }
   };
+
+  // function createAlert(params) {
+    
+  // }
 
   return (
     <div>
@@ -123,7 +129,6 @@ const Login = () => {
       <div
         className="alert alert-danger"
         role="alert"
-        color="red"
         style={{ display: errorM ? "block" : "none" }}
       >
         {errorM}
