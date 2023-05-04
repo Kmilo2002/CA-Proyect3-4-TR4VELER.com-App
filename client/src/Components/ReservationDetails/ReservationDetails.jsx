@@ -62,13 +62,14 @@ const ReservationDetails = () => {
 
       console.log(response.data);
       setReservation(response.data);
+      localStorage.setItem("idreserva", response.data.myReservation._id)
 
       setTimeout(() => {
         window.location.href = "/payment_confirm"
-      }, 10000);
+      }, 5000);
 
     } catch (error) {
-      console.log(error.response)
+      console.log(error.message)
       setErrorM(error.response.data.message);
     }
   };
@@ -231,8 +232,8 @@ const ReservationDetails = () => {
           <CardBody>
             <CardText>
               <h3>
-                Día entrada:{" "}{new Date(reservation.myReservation.dayIn).toLocaleDateString()} <br />
-                Día entrada:{" "}{new Date(reservation.myReservation.dayOut).toLocaleDateString()} <br />
+                Día Entrada:{" "}{new Date(reservation.myReservation.dayIn).toLocaleDateString()} <br />
+                Día Salida:{" "}{new Date(reservation.myReservation.dayOut).toLocaleDateString()} <br />
                 Total de Personas:{" "}{reservation.myReservation.persons} <br />
                 Precio Total: {reservation.myReservation.totalPrice} €
               </h3>

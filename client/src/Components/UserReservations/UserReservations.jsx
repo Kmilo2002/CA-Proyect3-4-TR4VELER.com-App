@@ -90,12 +90,13 @@ const UserReservations = () => {
               inverse
               style={{
                 width: "380px",
-                height: "180px",
+                height: "240px",
               }}
             >
               <CardBody>
                   <div key={reservas._id} to={`/reservations/${reservas._id}`}>
                     <h3>
+                      Lugar:{" "}{reservas.logging} <br />
                       Día entrada:{" "}{new Date(reservas.dayIn).toLocaleDateString()} <br />
                       Día salida:{" "}{new Date(reservas.dayOut).toLocaleDateString()} <br />
                       Cantidad de Personas:{" "}{reservas.persons} <br />
