@@ -23,6 +23,7 @@ import CancelConfirm from '../CancelConfirm/CancelConfirm'
 import Users from '../Users/Users'
 import UsersDetails from '../UsersDetails/UsersDetails'
 import ReservationDetails from '../ReservationDetails/ReservationDetails'
+import PasswordLost from '../PasswordLost/PasswordLost'
 
 
 const Pages = () => {
@@ -31,6 +32,7 @@ const Pages = () => {
         <Routes>
             <Route path = '/' element = {<Home />} />
             <Route path = '/login' element = {<Login />} />
+            <Route path = '/forget_password' element = {<PasswordLost />} />
             <Route path = '/register' element = {<Register />} />
             <Route path = '/welcome' element = {<Welcome />} />
             <Route path = '/profile' element = {<UserProfile />} />

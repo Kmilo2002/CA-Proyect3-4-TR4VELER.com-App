@@ -118,7 +118,7 @@ const Login = () => {
       </Form>
       <Divider orientation="horizontal" />
       <p>¿No tienes una cuenta? Entonces, <Link to = {"/register"}>Registrate</Link></p>
-      <p>¿Haz olvidado tu <Link>contraseña?</Link></p>
+      <p>¿Haz olvidado tu <Link to = {"/forget_password"}>contraseña?</Link></p>
       <div
         className="alert alert-primary"
         role="alert"
