@@ -242,7 +242,7 @@ const ReservationDetails = () => {
         </Card>  */}
         <Divider orientation="horizontal" />
           <Button className="button1" type="submit">
-            Pagar
+            Continuar Reserva
           </Button>
         <br />
         <Link to={`/loggings_search/${idlogging}`}>

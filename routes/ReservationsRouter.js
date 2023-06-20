@@ -49,7 +49,7 @@ ReservationsRouter.post("/register/reservation", auth, async (req, res) => {
     const oneDay = 24 * 60 * 60 * 1000; // Horas * minutos * segundos * milisegundos
     const diffInDays = Math.round(Math.abs((new Date(dayOut) - new Date(dayIn)) / oneDay)); // Calculamos la diferencia en días entre las fechas de entrada y salida
     const Price = diffInDays * loggingObj.price; // Multiplicamos la cantidad de días por el precio diario del alojamiento para obtener el precio total
-    const totalPrice = Price * 1.1; //Incluimos el IVA, que en hostelería es del 10%
+    const totalPrice = (Price * 1.1).toFixed(2); //Incluimos el IVA, que en hostelería es del 10%
 
     myReservation.totalPrice = totalPrice; // Asignamos el precio total a la propiedad totalPrice de la reserva
 
